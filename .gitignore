@@ -1,0 +1,39 @@
+# Dataset
+DATA/*
+
+# Python virtual environment
+Models/Emad/.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python environments
+.venv/
+venv/
+env/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files and logs
+*.log
+*.tmp
+*.swp
+
+# Large processed feature files
+Processed_Data/miewid_features.npy
+Processed_Data/sift_features.npz
+
+# Generated Kaggle submissions
+Processed_Data/submission_*.csv
