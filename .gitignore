@@ -37,3 +37,5 @@ Processed_Data/sift_features.npz
 
 # Generated Kaggle submissions
 Processed_Data/submission_*.csv
+# Cached SIFT pair verification
+Processed_Data/sift_pairs.npz
