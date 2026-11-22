@@ -15,6 +15,7 @@ import lightgbm as lgb
 import numpy as np
 import pandas as pd
 from scipy import sparse
+from scipy.sparse.csgraph import connected_components
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 
@@ -22,7 +23,8 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DATA = os.path.join(ROOT, "DATA", "reid_student_data_main")
 OUT = os.path.join(ROOT, "Processed_Data")
 N_SIMS, FOLDS, ROUNDS = 32, 8, 3        # simulated splits, stacking folds, stacking rounds
-K, NEIGHBOURS = 15, 50                  # candidates per query, SIFT pairs verified per image
+K, NEIGHBOURS = 15, 150                 # candidates per query, SIFT pairs verified per image
+SIFT_PULL = 0.05                        # weight of SIFT evidence when selecting candidates
 VIEWS = ["left", "right", "front", "back", "frontleft", "frontright", "backleft", "backright", "up", "down"]
 
 # ----------------------------------------------------------------------------- data
@@ -60,26 +62,30 @@ def verify(pair):
 
 
 def sift_matrices():
-    """Symmetric sparse matrices of matches / inliers for every image and its nearest same-species neighbours."""
-    path = f"{OUT}/sift_pairs.npz"
-    if not os.path.exists(path):
+    """Symmetric sparse matrices of matches / inliers for every image and its nearest same-species neighbours.
+    Pairs missing from the cache are verified in parallel and appended."""
+    path, n = f"{OUT}/sift_pairs.npz", len(X)
+    wanted = set()
+    for sp in ("hyena", "leopard"):
+        ix = np.where(SP == sp)[0]
+        sim = X[ix] @ X[ix].T
+        np.fill_diagonal(sim, -9)
+        for row, nb in zip(ix, np.argsort(-sim, 1)[:, :NEIGHBOURS]):
+            wanted.update(min(row, j) * n + max(row, j) for j in ix[nb])
+    done = np.load(path) if os.path.exists(path) else dict(pairs=np.empty((0, 2), int), good=np.empty(0, int), inl=np.empty(0, int))
+    missing = np.setdiff1d(np.fromiter(wanted, np.int64), done["pairs"][:, 0] * n + done["pairs"][:, 1])
+    if len(missing):
         global XY, DESC
         XY, DESC = load_sift()
-        pairs = set()
-        for sp in ("hyena", "leopard"):
-            ix = np.where(SP == sp)[0]
-            sim = X[ix] @ X[ix].T
-            np.fill_diagonal(sim, -9)
-            for row, nb in zip(ix, np.argsort(-sim, 1)[:, :NEIGHBOURS]):
-                pairs.update((min(row, j), max(row, j)) for j in ix[nb])
-        pairs = np.array(sorted(pairs))
+        new = np.stack(divmod(missing, n), 1)
         with Pool() as pool:
-            res = np.array(pool.map(verify, map(tuple, pairs), chunksize=256))
-        np.savez(path, pairs=pairs, good=res[:, 0], inl=res[:, 1])
-    p = np.load(path)
-    a, b = p["pairs"].T
-    mat = lambda v: sparse.coo_matrix((np.r_[v, v], (np.r_[a, b], np.r_[b, a])), shape=(len(X),) * 2).tocsr()
-    return mat(p["good"]), mat(p["inl"])
+            res = np.array(pool.map(verify, map(tuple, new), chunksize=256))
+        done = dict(pairs=np.r_[done["pairs"], new], good=np.r_[done["good"], res[:, 0]], inl=np.r_[done["inl"], res[:, 1]])
+        os.makedirs(OUT, exist_ok=True)
+        np.savez(path, **done)
+    a, b = done["pairs"].T
+    mat = lambda v: sparse.coo_matrix((np.r_[v, v], (np.r_[a, b], np.r_[b, a])), shape=(n, n)).tocsr()
+    return mat(done["good"]), mat(done["inl"])
 
 
 # ----------------------------------------------------------------------------- features
@@ -88,7 +94,7 @@ def unit(a):
 
 
 def embed(gallery, labels, queries):
-    pca = PCA(384).fit(gallery)
+    pca = PCA(min(384, len(gallery) + len(queries) - 1)).fit(np.r_[gallery, queries])      # unsupervised, sees the queries too
     lda = LDA(solver="eigen", shrinkage=0.3).fit(pca.transform(gallery), labels)
     project = lambda a: unit(lda.transform(pca.transform(a)))
     return project(gallery), project(queries)
@@ -117,6 +123,7 @@ def species_features(gi, qi, sp):
     inl_g, good_g = INL[qi][:, gi].toarray().astype(np.float32), GOOD[qi][:, gi].toarray().astype(np.float32)
     sift1, sift2 = per_identity(inl_g, inv, n)
     good1, _ = per_identity(good_g, inv, n)
+    support = (inl_g >= 8).astype(np.float32) @ np.eye(n, dtype=np.float32)[inv]     # gallery images confirmed per identity
     same_view = np.full((nq, n), np.nan)
     for j in range(n):
         for v in np.unique(vq):
@@ -147,7 +154,7 @@ def species_features(gi, qi, sp):
     for k in range(5):
         q[f"nb{k}"], q[f"nw{k}"], q[f"sb{k}"], q[f"sw{k}"] = nb[:, k], nbs[:, k], sb[:, k], sbs[:, k]
     # candidates: best identities by embedding similarity, lightly boosted by SIFT evidence
-    cand = np.argsort(-(lda1 + 0.05 * np.tanh(sift1 / 20)), 1)[:, :K]
+    cand = np.argsort(-(lda1 + SIFT_PULL * np.tanh(sift1 / 15)), 1)[:, :K]
     r, c = np.repeat(np.arange(nq), K), cand.ravel()
     nb_ev = np.max(np.minimum(nbs[:, :, None], np.stack([lda1[nb[:, k]] for k in range(5)], 1)), 1)
     sb_ev = np.max(np.minimum(sbs[:, :, None], np.stack([sift1[sb[:, k]] for k in range(5)], 1)), 1)
@@ -158,7 +165,7 @@ def species_features(gi, qi, sp):
         "gapl": lda1[r, c] - t_l[r, 0], "gapr": raw1[r, c] - t_r[r, 0], "same": same_view[r, c],
         "cnt": np.bincount(inv)[c], "nbev": nb_ev[r, c], "sbev": sb_ev[r, c],
         "rk_r": rank_of(raw1), "rk_c": rank_of(cen), "rk_s": rank_of(sift1),
-        "sx": sift1[r, c], "s2x": sift2[r, c], "gx": good1[r, c], "sgap": sift1[r, c] - t_s[r, 0],
+        "support": support[r, c], "sx": sift1[r, c], "s2x": sift2[r, c], "gx": good1[r, c], "sgap": sift1[r, c] - t_s[r, 0],
     })
     return q, cd
 
@@ -176,9 +183,22 @@ def build_frames(gi, qi):
 
 
 # ----------------------------------------------------------------------------- open-set simulation
+# Near-duplicate linking (raw similarity, SIFT inliers) per regime; None = random image holdout.
+REGIMES = [None, (0.95, 100), (0.99, 80), (0.9, 60)]
+
+
+def duplicate_groups(ix, link):
+    """Group images of one identity that are near-duplicates (same encounter); each image alone if link is None."""
+    if link is None:
+        return np.arange(len(ix))
+    edges = (X[ix] @ X[ix].T > link[0]) | (INL[ix][:, ix].toarray() >= link[1])
+    return connected_components(sparse.csr_matrix(edges))[1]
+
+
 def simulate(seed):
-    """Identity-disjoint split mimicking the test set: unknown identities, capped queries per identity."""
-    rng = np.random.default_rng(seed)
+    """Identity-disjoint open-set split mimicking the test set: unknown identities, capped queries per
+    identity, and (in most regimes) whole near-duplicate groups held out together."""
+    rng, link = np.random.default_rng(seed), REGIMES[seed % len(REGIMES)]
     gallery, known, unknown = [], [], []
     for sp in ("hyena", "leopard"):
         p_unknown, frac, cap = rng.uniform(.2, .35), rng.uniform(.3, .5), int(rng.integers(12, 33))
@@ -191,10 +211,17 @@ def simulate(seed):
             rng.shuffle(ix)
             if name in new:
                 unknown += list(ix[:cap])
+            elif len(ix) < 2:
+                gallery += list(ix)
             else:
-                n_q = min(max(int(round(frac * len(ix))), 1) if len(ix) > 1 else 0, cap, len(ix) - 1)
-                known += list(ix[:n_q])
-                gallery += list(ix[n_q:])
+                n_q, held = min(max(int(round(frac * len(ix))), 1), cap, len(ix) - 1), []
+                groups = duplicate_groups(ix, link)
+                for c in rng.permutation(np.unique(groups)):
+                    members = list(ix[groups == c])
+                    if len(held) < n_q and len(held) + len(members) < len(ix):
+                        held += members
+                known += held[:cap]
+                gallery += [i for i in ix if i not in set(held)]
     frames = build_frames(np.array(gallery), np.array(known + unknown))
     truth = np.where(np.isin(frames["order"], unknown), "new_individual", Y[frames["order"]])
     frames["truth"] = truth
