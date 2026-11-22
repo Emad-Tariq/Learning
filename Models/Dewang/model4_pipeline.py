@@ -236,14 +236,8 @@ class SiftMatcher:
     def __init__(self, npz_path, cache_file, mem_items=2000):
         import cv2  # imported lazily so the script runs without OpenCV when --use-sift is off
         self.cv2 = cv2
-        # sift_features.npz may be a real .npz file OR a folder of <key>.npy files (an unzipped npz)
-        self.is_dir = os.path.isdir(npz_path)
-        if self.is_dir:
-            self.dir = npz_path
-            self.data, self.keys = None, None
-        else:
-            self.data = np.load(npz_path)
-            self.keys = set(self.data.files)
+        self.data = np.load(npz_path)
+        self.keys = set(self.data.files)
         self.bf = cv2.BFMatcher(cv2.NORM_L2)
         self.cache_file = cache_file
         self.pairs = {}
@@ -253,30 +247,11 @@ class SiftMatcher:
         self._load = lru_cache(maxsize=mem_items)(self._load_raw)
         self.dirty = 0
 
-    def check(self, probe_id):
-        """Fail early with a readable message if the SIFT layout is not what we expect."""
-        if self.is_dir:
-            if not os.path.exists(os.path.join(self.dir, f"{probe_id}_desc.npy")):
-                raise RuntimeError(
-                    f"{self.dir} is a folder but has no '{probe_id}_desc.npy'. First entries: "
-                    f"{sorted(os.listdir(self.dir))[:8]}. Tell me what these look like and adapt SiftMatcher._array().")
-        elif f"{probe_id}_desc" not in self.keys:
-            raise RuntimeError(f"key '{probe_id}_desc' not in npz. First keys: {sorted(self.keys)[:8]}")
-
-    def _array(self, key):
-        """Return array for key like 'tr_00001_desc', or None if the image has no entry."""
-        if self.is_dir:
-            path = os.path.join(self.dir, key + ".npy")
-            return np.load(path) if os.path.exists(path) else None
-        return self.data[key] if key in self.keys else None
-
     def _load_raw(self, iid):
-        d = self._array(f"{iid}_desc")
-        xy = self._array(f"{iid}_xy")
-        if d is None or xy is None:
+        if f"{iid}_desc" not in self.keys:
             return np.zeros((0, 128), np.float32), np.zeros((0, 2), np.float32)
-        d = np.asarray(d, dtype=np.float32).reshape(-1, 128)
-        xy = np.asarray(xy, dtype=np.float32).reshape(len(d), -1)[:, :2]
+        d = np.asarray(self.data[f"{iid}_desc"], dtype=np.float32)
+        xy = np.asarray(self.data[f"{iid}_xy"], dtype=np.float32)[:, :2]
         if len(d) and d.min() >= 0:  # RootSIFT
             d = np.sqrt(d / np.maximum(d.sum(1, keepdims=True), 1e-12))
         return np.ascontiguousarray(d), xy
@@ -475,7 +450,6 @@ def main():
     if args.use_sift:
         sm = SiftMatcher(os.path.join(proc, "sift_features.npz"),
                          os.path.join(here, "cache", "sift_pairs.json"), args.sift_mem)
-        sm.check(train_df["id"].iloc[0])
 
     # ---- 1. splits ---------------------------------------------------------
     split_dir = os.path.join(proc, "splits")
