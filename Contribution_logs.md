@@ -8,4 +8,4 @@ Dewang:
 - **Model 4:** PCA-whitened MiewID retrieval with viewpoint-aware identity scoring (same-side bonus / opposite-side penalty),
   optional RootSIFT + RANSAC bonus, and a per-species logistic-regression new-individual detector whose probability places
   `new_individual` in the top-5 ranking. Shared open-set validation splits saved to Processed_Data/splits/.
-  Validation target_map: 0.77431
+  Public Scoreboard: 0.77431
