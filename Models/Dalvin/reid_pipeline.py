@@ -24,6 +24,7 @@ DATA = os.path.join(ROOT, "DATA", "reid_student_data_main")
 OUT = os.path.join(ROOT, "Processed_Data")
 N_SIMS, FOLDS, ROUNDS = 32, 8, 3        # simulated splits, stacking folds, stacking rounds
 K, NEIGHBOURS = 15, 150                 # candidates per query, SIFT pairs verified per image
+MATCH_RATIO, RANSAC_PX = 0.85, 15.0         # SIFT matching: ratio test, RANSAC pixel tolerance
 SIFT_PULL = 0.05                        # weight of SIFT evidence when selecting candidates
 FLANK = np.array([0, 1, 2, 2, 0, 1, 0, 1, 2, 2])    # left-ish, right-ish, other (per VIEWS order)
 VIEWS = ["left", "right", "front", "back", "frontleft", "frontright", "backleft", "backright", "up", "down"]
@@ -49,23 +50,26 @@ def load_sift():
 
 
 def verify(pair):
-    """(ratio-test matches, RANSAC inliers) between two images."""
+    """(mutual ratio-test matches, RANSAC inliers) between two images."""
     a, b = pair
     if len(DESC[a]) < 4 or len(DESC[b]) < 4:
         return 0, 0
-    good = [m[0] for m in cv2.BFMatcher().knnMatch(DESC[a], DESC[b], k=2) if len(m) == 2 and m[0].distance < 0.8 * m[1].distance]
+    bf = cv2.BFMatcher()
+    back = np.array([m.trainIdx for m in bf.match(DESC[b], DESC[a])])           # nearest descriptor of b in a
+    good = [m[0] for m in bf.knnMatch(DESC[a], DESC[b], k=2)
+            if len(m) == 2 and m[0].distance < MATCH_RATIO * m[1].distance and back[m[0].trainIdx] == m[0].queryIdx]
     if len(good) < 4:
         return len(good), 0
     src = np.float32([XY[a][m.queryIdx] for m in good])
     dst = np.float32([XY[b][m.trainIdx] for m in good])
-    _, inliers = cv2.estimateAffinePartial2D(src, dst, method=cv2.RANSAC, ransacReprojThreshold=10.0)
+    _, inliers = cv2.estimateAffinePartial2D(src, dst, method=cv2.RANSAC, ransacReprojThreshold=RANSAC_PX)
     return len(good), 0 if inliers is None else int(inliers.sum())
 
 
 def sift_matrices():
     """Symmetric sparse matrices of matches / inliers for every image and its nearest same-species neighbours.
     Pairs missing from the cache are verified in parallel and appended."""
-    path, n = f"{OUT}/sift_pairs.npz", len(X)
+    path, n = f"{OUT}/sift_pairs_mutual.npz", len(X)
     wanted = set()
     for sp in ("hyena", "leopard"):
         ix = np.where(SP == sp)[0]
@@ -124,7 +128,7 @@ def species_features(gi, qi, sp):
     inl_g, good_g = INL[qi][:, gi].toarray().astype(np.float32), GOOD[qi][:, gi].toarray().astype(np.float32)
     sift1, sift2 = per_identity(inl_g, inv, n)
     good1, _ = per_identity(good_g, inv, n)
-    support = (inl_g >= 8).astype(np.float32) @ np.eye(n, dtype=np.float32)[inv]     # gallery images confirmed per identity
+    support = (inl_g >= 7).astype(np.float32) @ np.eye(n, dtype=np.float32)[inv]     # gallery images confirmed per identity
     same_view = np.full((nq, n), np.nan)
     for j in range(n):
         for v in np.unique(vq):
@@ -191,7 +195,7 @@ def build_frames(gi, qi):
 
 # ----------------------------------------------------------------------------- open-set simulation
 # Near-duplicate linking (raw similarity, SIFT inliers) per regime; None = random image holdout.
-REGIMES = [None, (0.95, 100), (0.99, 80), (0.9, 60)]
+REGIMES = [None, (0.95, 111), (0.99, 89), (0.9, 67)]
 
 
 def duplicate_groups(ix, link):
@@ -332,5 +336,5 @@ if __name__ == "__main__":
     sample = pd.read_csv(f"{DATA}/sample_submission.csv")
     assert set(sub.id) == set(sample.id) and sub.id.is_unique and (sub.predictions.str.split().map(len) == 5).all()
     os.makedirs(OUT, exist_ok=True)
-    sub.to_csv(f"{OUT}/submission_model3c_viewpoint.csv", index=False)
+    sub.to_csv(f"{OUT}/submission_model3d_mutual_sift.csv", index=False)
     print(f"saved {len(sub)} rows; new_individual ranked first for {np.mean(preds[:, 0] == 'new_individual'):.1%}")
