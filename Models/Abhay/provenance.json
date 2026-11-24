@@ -1,0 +1,15 @@
+{
+  "source": "Models/Dalvin/reid_pipeline.py",
+  "source_sha256": "7e4f6be8981ef03955610014cd377d78ccdd3bff3e5d89864a4e466f312d0806",
+  "author": "Dalvin; adapted for Abhay calibration experiment",
+  "changes": [
+    "Removed import-time data loading and original main loop",
+    "Bound PCA components by feature dimension; fixed PCA seed",
+    "Guarded zero-vector normalization",
+    "Explicit deterministic LightGBM parameters; configurable threads and trees via runner",
+    "Original prediction, feature and stacking functions retained; final tie handling specified separately",
+    "Stable final ranking ties preserve conditional identity order for every comparison method"
+  ],
+  "model": "Model 5: Open-Set Score Fusion (OSSF)",
+  "version": "1.0"
+}

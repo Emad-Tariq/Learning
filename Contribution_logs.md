@@ -10,3 +10,6 @@ Dewang:
   optional RootSIFT + RANSAC bonus, and a per-species logistic-regression new-individual detector whose probability places
   `new_individual` in the top-5 ranking. Shared open-set validation splits saved to Processed_Data/splits/.
   Public Scoreboard: 0.77431
+
+Abhay:
+- **Model 5 — Open-Set Score Fusion (OSSF):** Added final-stage logistic fusion over Dalvin Model 3b evidence, with legacy-rule and detector-only ablations on a shared identity-disjoint sequential-stacking evaluation. Validation (506 queries): legacy rule MAP@5 **0.916206**, detector-only **0.909947**, OSSF **0.911594**; fusion delta **-0.00461133**. Known-query MAP@5 increased slightly overall, but unknown-query performance decreased; no overall improvement or leaderboard gain is claimed. Added Kaggle/Windows notebooks, reproducible splits, diagnostics, tests and documented negative-result analysis in `Models/Abhay/RESULTS.md`.

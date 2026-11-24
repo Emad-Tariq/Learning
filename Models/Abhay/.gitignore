@@ -1,0 +1,25 @@
+# Runtime outputs and environments
+local_runs/
+abhay_output/
+abhay_smoke/
+local_runtime/
+full/
+smoke/
+cache/
+.venv/
+venv/
+__pycache__/
+.ipynb_checkpoints/
+*.py[cod]
+*.joblib
+*.log
+*.tmp
+sift_*.npz
+submission_*.csv
+validation_predictions.csv
+validation_slices.csv
+calibration_examples.csv
+identity_roles.csv
+episode_splits.csv
+metrics.json
+config.json

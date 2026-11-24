@@ -1,0 +1,37 @@
+{
+  "model": "Model 5: Open-Set Score Fusion (OSSF)",
+  "recorded_date": "2026-11-24",
+  "evidence": "Notebook output supplied after the competition-data run; values transcribed at displayed precision.",
+  "evaluation": "Local open-set validation, not Kaggle leaderboard",
+  "n_queries": 506,
+  "n_known": 349,
+  "n_unknown": 157,
+  "unknown_fraction": 0.3102766798418972,
+  "known_candidate_recall": 0.9799426934097422,
+  "fusion_delta_map5": -0.0046113306982873414,
+  "methods": {
+    "dalvin_rule": {
+      "map5": 0.916206,
+      "known_map5": 0.887106,
+      "unknown_map5": 0.980892,
+      "known_new_at1": 0.12894,
+      "unknown_new_at1": 0.961783
+    },
+    "detector_only": {
+      "map5": 0.909947,
+      "known_map5": 0.889971,
+      "unknown_map5": 0.954352,
+      "known_new_at1": 0.114613,
+      "unknown_new_at1": 0.910828
+    },
+    "abhay_fusion": {
+      "map5": 0.911594,
+      "known_map5": 0.890449,
+      "unknown_map5": 0.958599,
+      "known_new_at1": 0.106017,
+      "unknown_new_at1": 0.923567
+    }
+  },
+  "conclusion": "No overall improvement on this split; legacy rule remains the strongest comparison method.",
+  "run_metadata": "Full metrics.json, environment and Kaggle version were not included with the supplied output. Repository defaults are documented separately and must not be treated as verified run metadata."
+}
