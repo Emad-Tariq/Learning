@@ -1,0 +1,5 @@
+species,query_type,n,dalvin_rule,detector_only,abhay_fusion
+hyena,known,158,0.903059,0.906224,0.900949
+hyena,unknown,79,0.974684,0.940928,0.959916
+leopard,known,191,0.873909,0.876527,0.881763
+leopard,unknown,78,0.987179,0.967949,0.957265
