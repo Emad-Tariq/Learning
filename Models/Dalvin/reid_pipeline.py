@@ -25,6 +25,7 @@ OUT = os.path.join(ROOT, "Processed_Data")
 N_SIMS, FOLDS, ROUNDS = 32, 8, 3        # simulated splits, stacking folds, stacking rounds
 K, NEIGHBOURS = 15, 150                 # candidates per query, SIFT pairs verified per image
 SIFT_PULL = 0.05                        # weight of SIFT evidence when selecting candidates
+FLANK = np.array([0, 1, 2, 2, 0, 1, 0, 1, 2, 2])    # left-ish, right-ish, other (per VIEWS order)
 VIEWS = ["left", "right", "front", "back", "frontleft", "frontright", "backleft", "backright", "up", "down"]
 
 # ----------------------------------------------------------------------------- data
@@ -130,6 +131,12 @@ def species_features(gi, qi, sp):
             cols = np.where((inv == j) & (vg == v))[0]
             if len(cols):
                 same_view[vq == v, j] = sim_l[np.ix_(vq == v, cols)].max(1)
+    # viewpoint coverage: flanks of one animal look different, so unseen sides cannot be matched
+    by_view = np.stack([np.bincount(inv[vg == v], minlength=n) for v in range(len(VIEWS))], 1)
+    by_flank = np.stack([by_view[:, FLANK == f].sum(1) for f in range(3)], 1)
+    seen = vq >= 0
+    n_view = np.where(seen[:, None], by_view[:, vq.clip(0)].T, np.nan)
+    n_flank = np.where(seen[:, None], by_flank[:, FLANK[vq.clip(0)]].T, np.nan)
     # transductive: neighbours among the queries themselves
     qq_r, qq_l, qq_s = Rq @ Rq.T, Lq @ Lq.T, INL[qi][:, qi].toarray().astype(np.float32)
     np.fill_diagonal(qq_r, -1), np.fill_diagonal(qq_l, -1)
@@ -165,7 +172,7 @@ def species_features(gi, qi, sp):
         "gapl": lda1[r, c] - t_l[r, 0], "gapr": raw1[r, c] - t_r[r, 0], "same": same_view[r, c],
         "cnt": np.bincount(inv)[c], "nbev": nb_ev[r, c], "sbev": sb_ev[r, c],
         "rk_r": rank_of(raw1), "rk_c": rank_of(cen), "rk_s": rank_of(sift1),
-        "support": support[r, c], "sx": sift1[r, c], "s2x": sift2[r, c], "gx": good1[r, c], "sgap": sift1[r, c] - t_s[r, 0],
+        "n_view": n_view[r, c], "n_flank": n_flank[r, c], "support": support[r, c], "sx": sift1[r, c], "s2x": sift2[r, c], "gx": good1[r, c], "sgap": sift1[r, c] - t_s[r, 0],
     })
     return q, cd
 
@@ -325,5 +332,5 @@ if __name__ == "__main__":
     sample = pd.read_csv(f"{DATA}/sample_submission.csv")
     assert set(sub.id) == set(sample.id) and sub.id.is_unique and (sub.predictions.str.split().map(len) == 5).all()
     os.makedirs(OUT, exist_ok=True)
-    sub.to_csv(f"{OUT}/submission_model3_stacked.csv", index=False)
+    sub.to_csv(f"{OUT}/submission_model3c_viewpoint.csv", index=False)
     print(f"saved {len(sub)} rows; new_individual ranked first for {np.mean(preds[:, 0] == 'new_individual'):.1%}")
