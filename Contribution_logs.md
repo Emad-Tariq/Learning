@@ -5,4 +5,4 @@ Emad:
 Dalvin:
 - **Model 3:** LDA-projected MIEW-ID retrieval, RootSIFT + RANSAC verification, and LightGBM open-set ranking (new-individual detector + candidate scorers) trained on simulated open-set splits, with 3 rounds of transductive stacking over nearest test neighbours. Public leaderboard score: 0.84305.
 - **Model 3b:** Same pipeline trained on a mix of simulated regimes (random holdout plus similarity-aware splits that hold out whole near-duplicate groups), PCA fitted on gallery and queries, and SIFT verification widened to 150 neighbours per image. Public leaderboard score: 0.85078 (simulated out-of-fold MAP@5 0.906 on the harder mix).
-- **Model 3c:** Model 3b plus viewpoint-coverage features (how many gallery images of a candidate share the query's viewpoint or flank). Simulated out-of-fold MAP@5 0.9073 (3b: 0.9056). Public leaderboard score: pending.
+- **Model 3c:** Model 3b plus viewpoint-coverage features (how many gallery images of a candidate share the query's viewpoint or flank). Simulated out-of-fold MAP@5 0.9073 (3b: 0.9056). Public leaderboard score: 0.84665 (no gain over 3b within noise).
