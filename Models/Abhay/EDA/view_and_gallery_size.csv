@@ -1,0 +1,9 @@
+species,small_gallery,same_view_available,queries,map5
+hyena,False,False,127,0.7649606299212599
+hyena,False,True,1563,0.9276818084879506
+hyena,True,False,62,0.21155913978494625
+hyena,True,True,157,0.7251592356687898
+leopard,False,False,184,0.5583333333333333
+leopard,False,True,4614,0.9351466551076434
+leopard,True,False,177,0.17853107344632768
+leopard,True,True,177,0.6573446327683615

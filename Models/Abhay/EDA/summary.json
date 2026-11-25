@@ -1,0 +1,671 @@
+{
+  "date": "2026-11-25",
+  "seed": 2059,
+  "data_path": "C:\\Users\\SANGEETA-DAILY\\Downloads\\reid_student_data_main",
+  "features": {
+    "shape": [
+      9954,
+      2152
+    ],
+    "dtype": "float32",
+    "norm_min": 48.09178924560547,
+    "norm_max": 239.0451202392578,
+    "finite": true
+  },
+  "missing_metadata": {
+    "id": 0,
+    "species": 0,
+    "viewpoint": 178,
+    "split": 0
+  },
+  "missing_train_identity": 0,
+  "composition": [
+    {
+      "split": "test",
+      "species": "hyena",
+      "images": 1217
+    },
+    {
+      "split": "test",
+      "species": "leopard",
+      "images": 1574
+    },
+    {
+      "split": "train",
+      "species": "hyena",
+      "images": 1912
+    },
+    {
+      "split": "train",
+      "species": "leopard",
+      "images": 5251
+    }
+  ],
+  "identity_distribution": {
+    "hyena": {
+      "identities": 205,
+      "min": 1,
+      "median": 6.0,
+      "max": 73,
+      "single_photo": 3,
+      "up_to_three_photos": 42
+    },
+    "leopard": {
+      "identities": 345,
+      "min": 1,
+      "median": 3.0,
+      "max": 391,
+      "single_photo": 99,
+      "up_to_three_photos": 204
+    }
+  },
+  "exact_feature_duplicate_rows": 2,
+  "near_duplicate_groups": {
+    "hyena": {
+      "groups": 1911,
+      "identities_with_one_group": 3,
+      "identities": 205
+    },
+    "leopard": {
+      "groups": 5214,
+      "identities_with_one_group": 99,
+      "identities": 345
+    }
+  },
+  "retrieval": [
+    {
+      "species": "hyena",
+      "mode": "self_excluded",
+      "queries": 1909,
+      "excluded": 3,
+      "map5": 0.8769425528199755,
+      "top1": 0.8522786799371399,
+      "top5": 0.9167103195390257
+    },
+    {
+      "species": "hyena",
+      "mode": "group_excluded",
+      "queries": 1909,
+      "excluded": 3,
+      "map5": 0.8769425528199755,
+      "top1": 0.8522786799371399,
+      "top5": 0.9167103195390257
+    },
+    {
+      "species": "leopard",
+      "mode": "self_excluded",
+      "queries": 5152,
+      "excluded": 99,
+      "map5": 0.8861510093167702,
+      "top1": 0.8631599378881988,
+      "top5": 0.921001552795031
+    },
+    {
+      "species": "leopard",
+      "mode": "group_excluded",
+      "queries": 5152,
+      "excluded": 99,
+      "map5": 0.8861510093167702,
+      "top1": 0.8631599378881988,
+      "top5": 0.921001552795031
+    },
+    {
+      "species": "all",
+      "mode": "self_excluded",
+      "queries": 7061,
+      "excluded": 102,
+      "map5": 0.8836614266156824,
+      "top1": 0.8602180994193457,
+      "top5": 0.9198413822404758
+    },
+    {
+      "species": "all",
+      "mode": "group_excluded",
+      "queries": 7061,
+      "excluded": 102,
+      "map5": 0.8836614266156824,
+      "top1": 0.8602180994193457,
+      "top5": 0.9198413822404758
+    }
+  ],
+  "slices": [
+    {
+      "slice": "species",
+      "value": "hyena",
+      "queries": 1909,
+      "map5": 0.8769425528199755,
+      "top1": 0.8522786799371399,
+      "top15": 0.9528548978522788
+    },
+    {
+      "slice": "species",
+      "value": "leopard",
+      "queries": 5152,
+      "map5": 0.8861510093167702,
+      "top1": 0.8631599378881988,
+      "top15": 0.9499223602484472
+    },
+    {
+      "slice": "viewpoint",
+      "value": "back",
+      "queries": 882,
+      "map5": 0.8499811035525322,
+      "top1": 0.8095238095238095,
+      "top15": 0.963718820861678
+    },
+    {
+      "slice": "viewpoint",
+      "value": "backleft",
+      "queries": 44,
+      "map5": 0.9090909090909092,
+      "top1": 0.8863636363636364,
+      "top15": 0.9772727272727272
+    },
+    {
+      "slice": "viewpoint",
+      "value": "backright",
+      "queries": 52,
+      "map5": 0.8028846153846154,
+      "top1": 0.7692307692307693,
+      "top15": 0.903846153846154
+    },
+    {
+      "slice": "viewpoint",
+      "value": "down",
+      "queries": 190,
+      "map5": 0.9357017543859648,
+      "top1": 0.9052631578947368,
+      "top15": 0.9842105263157894
+    },
+    {
+      "slice": "viewpoint",
+      "value": "front",
+      "queries": 749,
+      "map5": 0.8145304850912328,
+      "top1": 0.7797062750333779,
+      "top15": 0.910547396528705
+    },
+    {
+      "slice": "viewpoint",
+      "value": "frontleft",
+      "queries": 89,
+      "map5": 0.9189138576779026,
+      "top1": 0.8876404494382022,
+      "top15": 0.9775280898876404
+    },
+    {
+      "slice": "viewpoint",
+      "value": "frontright",
+      "queries": 52,
+      "map5": 0.8942307692307693,
+      "top1": 0.8653846153846154,
+      "top15": 0.9807692307692308
+    },
+    {
+      "slice": "viewpoint",
+      "value": "left",
+      "queries": 2412,
+      "map5": 0.905548645660586,
+      "top1": 0.8893034825870647,
+      "top15": 0.9548092868988391
+    },
+    {
+      "slice": "viewpoint",
+      "value": "right",
+      "queries": 2428,
+      "map5": 0.907660626029654,
+      "top1": 0.8908566721581549,
+      "top15": 0.9559308072487644
+    },
+    {
+      "slice": "viewpoint",
+      "value": "up",
+      "queries": 28,
+      "map5": 0.7708333333333333,
+      "top1": 0.75,
+      "top15": 0.9285714285714286
+    },
+    {
+      "slice": "same_view_available",
+      "value": "False",
+      "queries": 550,
+      "map5": 0.4447272727272727,
+      "top1": 0.3927272727272727,
+      "top15": 0.649090909090909
+    },
+    {
+      "slice": "same_view_available",
+      "value": "True",
+      "queries": 6511,
+      "map5": 0.9207392617621462,
+      "top1": 0.8997081861465213,
+      "top15": 0.9761941330056828
+    },
+    {
+      "slice": "same_flank_available",
+      "value": "False",
+      "queries": 2175,
+      "map5": 0.767088122605364,
+      "top1": 0.727816091954023,
+      "top15": 0.887816091954023
+    },
+    {
+      "slice": "same_flank_available",
+      "value": "True",
+      "queries": 4886,
+      "map5": 0.9355539637058262,
+      "top1": 0.919156774457634,
+      "top15": 0.9787146950470732
+    },
+    {
+      "slice": "gallery_size_bin",
+      "value": "1",
+      "queries": 114,
+      "map5": 0.27880116959064327,
+      "top1": 0.2631578947368421,
+      "top15": 0.41228070175438597
+    },
+    {
+      "slice": "gallery_size_bin",
+      "value": "2-3",
+      "queries": 459,
+      "map5": 0.5297022512708788,
+      "top1": 0.485838779956427,
+      "top15": 0.7058823529411765
+    },
+    {
+      "slice": "gallery_size_bin",
+      "value": "4-7",
+      "queries": 726,
+      "map5": 0.8178833792470156,
+      "top1": 0.7878787878787878,
+      "top15": 0.9242424242424242
+    },
+    {
+      "slice": "gallery_size_bin",
+      "value": "8-15",
+      "queries": 866,
+      "map5": 0.8777328714395689,
+      "top1": 0.8579676674364896,
+      "top15": 0.9387990762124712
+    },
+    {
+      "slice": "gallery_size_bin",
+      "value": "16+",
+      "queries": 4896,
+      "map5": 0.9417313453159042,
+      "top1": 0.9203431372549019,
+      "top15": 0.9922385620915033
+    }
+  ],
+  "matched_query_subset": {
+    "queries": 7061,
+    "self_excluded_map5": 0.8836614266156824,
+    "group_excluded_map5": 0.8836614266156824,
+    "raw_top15_recall": 0.9507151961478544
+  },
+  "open_set": [
+    {
+      "seed": 2059,
+      "species": "hyena",
+      "gallery_images": 1028,
+      "known_queries": 451,
+      "unknown_queries": 433,
+      "auc_unknown": 0.8531003722802293,
+      "threshold_for_95pct_known_acceptance": 0.39886343479156494,
+      "unknown_false_accept_rate": 0.7505773672055427
+    },
+    {
+      "seed": 2059,
+      "species": "leopard",
+      "gallery_images": 3015,
+      "known_queries": 1287,
+      "unknown_queries": 949,
+      "auc_unknown": 0.8468522462200018,
+      "threshold_for_95pct_known_acceptance": 0.4152279496192932,
+      "unknown_false_accept_rate": 0.7154899894625922
+    },
+    {
+      "seed": 2060,
+      "species": "hyena",
+      "gallery_images": 957,
+      "known_queries": 427,
+      "unknown_queries": 528,
+      "auc_unknown": 0.8766322475338869,
+      "threshold_for_95pct_known_acceptance": 0.39298582077026367,
+      "unknown_false_accept_rate": 0.8162878787878788
+    },
+    {
+      "seed": 2060,
+      "species": "leopard",
+      "gallery_images": 2996,
+      "known_queries": 1292,
+      "unknown_queries": 963,
+      "auc_unknown": 0.9154072187983244,
+      "threshold_for_95pct_known_acceptance": 0.4161507189273834,
+      "unknown_false_accept_rate": 0.6095534787123572
+    },
+    {
+      "seed": 2061,
+      "species": "hyena",
+      "gallery_images": 996,
+      "known_queries": 440,
+      "unknown_queries": 476,
+      "auc_unknown": 0.8557056913674562,
+      "threshold_for_95pct_known_acceptance": 0.409492552280426,
+      "unknown_false_accept_rate": 0.7331932773109243
+    },
+    {
+      "seed": 2061,
+      "species": "leopard",
+      "gallery_images": 2289,
+      "known_queries": 987,
+      "unknown_queries": 1975,
+      "auc_unknown": 0.7840637143626641,
+      "threshold_for_95pct_known_acceptance": 0.3944227695465088,
+      "unknown_false_accept_rate": 0.8369620253164557
+    }
+  ],
+  "sift": {
+    "missing": 0,
+    "invalid_xy_shapes": 0,
+    "by_split_species": [
+      {
+        "split": "test",
+        "species": "hyena",
+        "count": 1217,
+        "min": 0,
+        "median": 500.0,
+        "max": 503
+      },
+      {
+        "split": "test",
+        "species": "leopard",
+        "count": 1574,
+        "min": 0,
+        "median": 500.0,
+        "max": 504
+      },
+      {
+        "split": "train",
+        "species": "hyena",
+        "count": 1912,
+        "min": 0,
+        "median": 500.0,
+        "max": 503
+      },
+      {
+        "split": "train",
+        "species": "leopard",
+        "count": 5251,
+        "min": 0,
+        "median": 500.0,
+        "max": 504
+      }
+    ]
+  },
+  "sift_sample": [
+    {
+      "species": "hyena",
+      "category": "distinct_group_opposite_flank",
+      "pairs": 40,
+      "median_inliers": 3.0,
+      "mean_inliers": 2.825,
+      "fraction_ge7": 0.0
+    },
+    {
+      "species": "hyena",
+      "category": "distinct_group_same_flank",
+      "pairs": 40,
+      "median_inliers": 5.5,
+      "mean_inliers": 18.775,
+      "fraction_ge7": 0.5
+    },
+    {
+      "species": "hyena",
+      "category": "hard_negative",
+      "pairs": 40,
+      "median_inliers": 3.0,
+      "mean_inliers": 3.25,
+      "fraction_ge7": 0.025
+    },
+    {
+      "species": "hyena",
+      "category": "near_duplicate_positive",
+      "pairs": 1,
+      "median_inliers": 310.0,
+      "mean_inliers": 310.0,
+      "fraction_ge7": 1.0
+    },
+    {
+      "species": "leopard",
+      "category": "distinct_group_opposite_flank",
+      "pairs": 40,
+      "median_inliers": 3.0,
+      "mean_inliers": 20.225,
+      "fraction_ge7": 0.25
+    },
+    {
+      "species": "leopard",
+      "category": "distinct_group_same_flank",
+      "pairs": 40,
+      "median_inliers": 15.5,
+      "mean_inliers": 50.2,
+      "fraction_ge7": 0.65
+    },
+    {
+      "species": "leopard",
+      "category": "hard_negative",
+      "pairs": 40,
+      "median_inliers": 3.0,
+      "mean_inliers": 2.7,
+      "fraction_ge7": 0.0
+    },
+    {
+      "species": "leopard",
+      "category": "near_duplicate_positive",
+      "pairs": 37,
+      "median_inliers": 354.0,
+      "mean_inliers": 318.56756756756755,
+      "fraction_ge7": 1.0
+    }
+  ],
+  "lda_episode": [
+    {
+      "species": "hyena",
+      "method": "pca_lda",
+      "slice": "all",
+      "queries": 451,
+      "map5": 0.8957871396895787,
+      "top1": 0.8691796008869179,
+      "top5": 0.9423503325942352,
+      "top15": 0.9733924611973392
+    },
+    {
+      "species": "hyena",
+      "method": "pca_lda",
+      "slice": "same_flank_False",
+      "queries": 43,
+      "map5": 0.5616279069767441,
+      "top1": 0.4883720930232558,
+      "top5": 0.6976744186046512,
+      "top15": 0.8372093023255814
+    },
+    {
+      "species": "hyena",
+      "method": "pca_lda",
+      "slice": "same_flank_True",
+      "queries": 408,
+      "map5": 0.9310049019607844,
+      "top1": 0.909313725490196,
+      "top5": 0.9681372549019608,
+      "top15": 0.9877450980392156
+    },
+    {
+      "species": "hyena",
+      "method": "raw",
+      "slice": "all",
+      "queries": 451,
+      "map5": 0.8700295639320029,
+      "top1": 0.8514412416851441,
+      "top5": 0.902439024390244,
+      "top15": 0.9423503325942352
+    },
+    {
+      "species": "hyena",
+      "method": "raw",
+      "slice": "same_flank_False",
+      "queries": 43,
+      "map5": 0.4011627906976744,
+      "top1": 0.3488372093023256,
+      "top5": 0.4883720930232558,
+      "top15": 0.6744186046511628
+    },
+    {
+      "species": "hyena",
+      "method": "raw",
+      "slice": "same_flank_True",
+      "queries": 408,
+      "map5": 0.9194444444444444,
+      "top1": 0.9044117647058824,
+      "top5": 0.946078431372549,
+      "top15": 0.9705882352941176
+    },
+    {
+      "species": "leopard",
+      "method": "pca_lda",
+      "slice": "all",
+      "queries": 1287,
+      "map5": 0.889018389018389,
+      "top1": 0.8655788655788655,
+      "top5": 0.9246309246309248,
+      "top15": 0.9549339549339548
+    },
+    {
+      "species": "leopard",
+      "method": "pca_lda",
+      "slice": "same_flank_False",
+      "queries": 520,
+      "map5": 0.7900961538461538,
+      "top1": 0.7538461538461538,
+      "top5": 0.8480769230769231,
+      "top15": 0.9134615384615384
+    },
+    {
+      "species": "leopard",
+      "method": "pca_lda",
+      "slice": "same_flank_True",
+      "queries": 767,
+      "map5": 0.9560843111690568,
+      "top1": 0.9413298565840938,
+      "top5": 0.9765319426336376,
+      "top15": 0.9830508474576272
+    },
+    {
+      "species": "leopard",
+      "method": "raw",
+      "slice": "all",
+      "queries": 1287,
+      "map5": 0.8764050764050765,
+      "top1": 0.8484848484848485,
+      "top5": 0.9191919191919192,
+      "top15": 0.9494949494949496
+    },
+    {
+      "species": "leopard",
+      "method": "raw",
+      "slice": "same_flank_False",
+      "queries": 520,
+      "map5": 0.7630128205128205,
+      "top1": 0.7173076923076923,
+      "top5": 0.8365384615384616,
+      "top15": 0.8903846153846153
+    },
+    {
+      "species": "leopard",
+      "method": "raw",
+      "slice": "same_flank_True",
+      "queries": 767,
+      "map5": 0.9532811820947416,
+      "top1": 0.9374185136897,
+      "top5": 0.9752281616688396,
+      "top15": 0.9895697522816168
+    }
+  ],
+  "left_right_coverage": [
+    {
+      "species": "hyena",
+      "same_flank_available": false,
+      "queries": 54,
+      "map5": 0.10246913580246914
+    },
+    {
+      "species": "hyena",
+      "same_flank_available": true,
+      "queries": 1765,
+      "map5": 0.9059867799811142
+    },
+    {
+      "species": "leopard",
+      "same_flank_available": false,
+      "queries": 137,
+      "map5": 0.1559610705596107
+    },
+    {
+      "species": "leopard",
+      "same_flank_available": true,
+      "queries": 3121,
+      "map5": 0.9522749118872157
+    }
+  ],
+  "identity_macro": [
+    {
+      "species": "hyena",
+      "identity_macro_map5": 0.7797288617045625
+    },
+    {
+      "species": "leopard",
+      "identity_macro_map5": 0.5996119162158385
+    }
+  ],
+  "sift_availability_limits": [
+    {
+      "split": "test",
+      "species": "hyena",
+      "empty": 22,
+      "too_few": 35
+    },
+    {
+      "split": "test",
+      "species": "leopard",
+      "empty": 13,
+      "too_few": 19
+    },
+    {
+      "split": "train",
+      "species": "hyena",
+      "empty": 37,
+      "too_few": 67
+    },
+    {
+      "split": "train",
+      "species": "leopard",
+      "empty": 24,
+      "too_few": 34
+    }
+  ],
+  "candidate_union_recall": [
+    {
+      "species": "hyena",
+      "lda15": 0.9733924611973392,
+      "raw15": 0.9423503325942351,
+      "union15": 0.9778270509977827
+    },
+    {
+      "species": "leopard",
+      "lda15": 0.9549339549339549,
+      "raw15": 0.9494949494949495,
+      "union15": 0.9627039627039627
+    }
+  ]
+}

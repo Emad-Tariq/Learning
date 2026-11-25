@@ -1,0 +1,122 @@
+[
+  {
+    "species": "hyena",
+    "method": "pca_lda",
+    "slice": "all",
+    "queries": 451,
+    "map5": 0.8957871396895787,
+    "top1": 0.8691796008869179,
+    "top5": 0.9423503325942351,
+    "top15": 0.9733924611973392
+  },
+  {
+    "species": "hyena",
+    "method": "pca_lda",
+    "slice": "same_flank_False",
+    "queries": 43,
+    "map5": 0.5616279069767441,
+    "top1": 0.4883720930232558,
+    "top5": 0.6976744186046512,
+    "top15": 0.8372093023255814
+  },
+  {
+    "species": "hyena",
+    "method": "pca_lda",
+    "slice": "same_flank_True",
+    "queries": 408,
+    "map5": 0.9310049019607843,
+    "top1": 0.9093137254901961,
+    "top5": 0.9681372549019608,
+    "top15": 0.9877450980392157
+  },
+  {
+    "species": "hyena",
+    "method": "raw",
+    "slice": "all",
+    "queries": 451,
+    "map5": 0.8700295639320029,
+    "top1": 0.8514412416851441,
+    "top5": 0.9024390243902439,
+    "top15": 0.9423503325942351
+  },
+  {
+    "species": "hyena",
+    "method": "raw",
+    "slice": "same_flank_False",
+    "queries": 43,
+    "map5": 0.4011627906976744,
+    "top1": 0.3488372093023256,
+    "top5": 0.4883720930232558,
+    "top15": 0.6744186046511628
+  },
+  {
+    "species": "hyena",
+    "method": "raw",
+    "slice": "same_flank_True",
+    "queries": 408,
+    "map5": 0.9194444444444444,
+    "top1": 0.9044117647058824,
+    "top5": 0.946078431372549,
+    "top15": 0.9705882352941176
+  },
+  {
+    "species": "leopard",
+    "method": "pca_lda",
+    "slice": "all",
+    "queries": 1287,
+    "map5": 0.889018389018389,
+    "top1": 0.8655788655788655,
+    "top5": 0.9246309246309247,
+    "top15": 0.9549339549339549
+  },
+  {
+    "species": "leopard",
+    "method": "pca_lda",
+    "slice": "same_flank_False",
+    "queries": 520,
+    "map5": 0.7900961538461538,
+    "top1": 0.7538461538461538,
+    "top5": 0.8480769230769231,
+    "top15": 0.9134615384615384
+  },
+  {
+    "species": "leopard",
+    "method": "pca_lda",
+    "slice": "same_flank_True",
+    "queries": 767,
+    "map5": 0.9560843111690569,
+    "top1": 0.9413298565840938,
+    "top5": 0.9765319426336375,
+    "top15": 0.9830508474576272
+  },
+  {
+    "species": "leopard",
+    "method": "raw",
+    "slice": "all",
+    "queries": 1287,
+    "map5": 0.8764050764050765,
+    "top1": 0.8484848484848485,
+    "top5": 0.9191919191919192,
+    "top15": 0.9494949494949495
+  },
+  {
+    "species": "leopard",
+    "method": "raw",
+    "slice": "same_flank_False",
+    "queries": 520,
+    "map5": 0.7630128205128205,
+    "top1": 0.7173076923076923,
+    "top5": 0.8365384615384616,
+    "top15": 0.8903846153846153
+  },
+  {
+    "species": "leopard",
+    "method": "raw",
+    "slice": "same_flank_True",
+    "queries": 767,
+    "map5": 0.9532811820947416,
+    "top1": 0.9374185136897001,
+    "top5": 0.9752281616688396,
+    "top15": 0.9895697522816167
+  }
+]

@@ -1,0 +1,5 @@
+split,species,images
+test,hyena,1217
+test,leopard,1574
+train,hyena,1912
+train,leopard,5251

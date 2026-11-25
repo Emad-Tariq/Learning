@@ -1,0 +1,9 @@
+species,category,pairs,median_inliers,mean_inliers,fraction_ge7
+hyena,distinct_group_opposite_flank,40,3.0,2.825,0.0
+hyena,distinct_group_same_flank,40,5.5,18.775,0.5
+hyena,hard_negative,40,3.0,3.25,0.025
+hyena,near_duplicate_positive,1,310.0,310.0,1.0
+leopard,distinct_group_opposite_flank,40,3.0,20.225,0.25
+leopard,distinct_group_same_flank,40,15.5,50.2,0.65
+leopard,hard_negative,40,3.0,2.7,0.0
+leopard,near_duplicate_positive,37,354.0,318.56756756756755,1.0

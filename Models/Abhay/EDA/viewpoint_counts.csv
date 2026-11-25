@@ -1,0 +1,5 @@
+split,species,back,backleft,backright,down,front,frontleft,frontright,left,right,up
+test,hyena,4,23,28,2,13,42,31,519,533,22
+test,leopard,173,0,0,18,181,0,0,590,570,0
+train,hyena,16,44,53,8,38,89,52,775,809,28
+train,leopard,870,0,0,182,721,0,0,1693,1649,0
