@@ -39,3 +39,8 @@ Processed_Data/sift_features.npz
 Processed_Data/submission_*.csv
 # Cached SIFT pair verification
 Processed_Data/sift_pairs*.npz
+Processed_Data/*.npz
+Processed_Data/*.npy
+Processed_Data/sift_features_npy_backup/
+Models/*/cache/
+__pycache__/
