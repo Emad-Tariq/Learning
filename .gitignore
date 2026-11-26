@@ -42,5 +42,6 @@ Processed_Data/sift_pairs*.npz
 Processed_Data/*.npz
 Processed_Data/*.npy
 Processed_Data/sift_features_npy_backup/
+/Processed_Data/sift_features/
 Models/*/cache/
 __pycache__/
