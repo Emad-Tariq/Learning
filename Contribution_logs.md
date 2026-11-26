@@ -1,6 +1,8 @@
 Emad:
+- **Model 7:** Ambiguity-aware gallery pair scoring and background-adjusted SIFT. Model 7 scored **0.85187** on the public Kaggle leaderboard, 0.00773 below Model 3d (0.85960). Full local simulated MAP@5 was 0.91301 for Model 7 and 0.91249 for the matched 3d control.
 - **Model 1:** Implemented MIEW-ID cosine similarity baseline for species-aware identity retrieval. Achieved 0.53083 public leaderboard score.
 - **Model 2:** Extended baseline with SIFT feature matching, RANSAC verification, and species-specific open-set thresholds. Achieved 0.765 public leaderboard score.
+- **Model 6:** Tested joint open-set ranking with cross-flank retrieval and domain weighting. Public Kaggle MAP@5 was 0.83194, compared with 0.85960 for Model 3d.
 
 Dalvin:
 - **Model 3:** LDA-projected MIEW-ID retrieval, RootSIFT + RANSAC verification, and LightGBM open-set ranking (new-individual detector + candidate scorers) trained on simulated open-set splits, with 3 rounds of transductive stacking over nearest test neighbours. Simulated out-of-fold MAP@5: 0.916. Public leaderboard score: pending submission.
