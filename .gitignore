@@ -45,3 +45,5 @@ Processed_Data/sift_features_npy_backup/
 /Processed_Data/sift_features/
 Models/*/cache/
 __pycache__/
+
+/Models/Emad/model3e_plus_cache/
