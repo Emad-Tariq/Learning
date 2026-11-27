@@ -1,0 +1,53 @@
+{
+  "paired_validation": {
+    "Model 12": {
+      "map5": 0.8918212077983834,
+      "replacement_map5": 0.8682715168806466,
+      "delta": -0.023549690917736565,
+      "ci95": [
+        -0.04176833108599269,
+        -0.006650119542545097
+      ],
+      "known_delta": -0.010053235053235054,
+      "novel_delta": -0.04223356009070295
+    },
+    "Model 14": {
+      "map5": 0.8934617213504517,
+      "replacement_map5": 0.8682715168806466,
+      "delta": -0.025190204469805043,
+      "ci95": [
+        -0.045058727700924686,
+        -0.007621054552722336
+      ],
+      "known_delta": -0.010626535626535625,
+      "novel_delta": -0.0453514739229025
+    },
+    "Model 15 specialist": {
+      "map5": 0.8937351402757965,
+      "replacement_map5": 0.8682715168806466,
+      "delta": -0.02546362339514979,
+      "ci95": [
+        -0.045318655745849895,
+        -0.007819471525778108
+      ],
+      "known_delta": -0.011097461097461098,
+      "novel_delta": -0.0453514739229025
+    }
+  },
+  "independent_csv_format_verified": true,
+  "full_test_prediction_disagreements": {
+    "Emad Model 8": {
+      "top1_disagreements": 193,
+      "known_new_disagreements": 183,
+      "identical_ranked_lists": 44
+    },
+    "Model 15 specialist": {
+      "top1_disagreements": 221,
+      "known_new_disagreements": 205,
+      "identical_ranked_lists": 15
+    }
+  },
+  "unique_validation_photos": 857,
+  "validation_identities": 95,
+  "validation_appearances": 1402
+}

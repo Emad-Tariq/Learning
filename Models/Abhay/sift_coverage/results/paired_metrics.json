@@ -1,0 +1,135 @@
+{
+  "queries": 1829,
+  "unique_photos": 1147,
+  "unique_identities": 105,
+  "baseline": {
+    "map5": 0.9342719154364862,
+    "known_map5": 0.8971913891691893,
+    "unknown_map5": 0.9781225139220365
+  },
+  "supplement": {
+    "map5": 0.9351467104064152,
+    "known_map5": 0.9003195425496132,
+    "unknown_map5": 0.976332537788385
+  },
+  "delta": 0.0008747949699289229,
+  "improved": 30,
+  "worsened": 32,
+  "episodes": {
+    "22052": {
+      "queries": 627,
+      "unique_photos": 627,
+      "unique_identities": 97,
+      "baseline": {
+        "map5": 0.9297182349813928,
+        "known_map5": 0.898546511627907,
+        "unknown_map5": 0.9676089517078915
+      },
+      "supplement": {
+        "map5": 0.9309144072301968,
+        "known_map5": 0.9021802325581394,
+        "unknown_map5": 0.9658421672555948
+      },
+      "delta": 0.0011961722488038275,
+      "improved": 14,
+      "worsened": 13
+    },
+    "22053": {
+      "queries": 595,
+      "unique_photos": 595,
+      "unique_identities": 98,
+      "baseline": {
+        "map5": 0.9380672268907565,
+        "known_map5": 0.8925249169435215,
+        "unknown_map5": 0.9846938775510204
+      },
+      "supplement": {
+        "map5": 0.9384313725490196,
+        "known_map5": 0.8932447397563676,
+        "unknown_map5": 0.9846938775510204
+      },
+      "delta": 0.0003641456582633053,
+      "improved": 6,
+      "worsened": 9
+    },
+    "22054": {
+      "queries": 607,
+      "unique_photos": 607,
+      "unique_identities": 96,
+      "baseline": {
+        "map5": 0.9352553542009884,
+        "known_map5": 0.8999036608863199,
+        "unknown_map5": 0.9821200510855682
+      },
+      "supplement": {
+        "map5": 0.9362987369577154,
+        "known_map5": 0.9046242774566474,
+        "unknown_map5": 0.9782886334610472
+      },
+      "delta": 0.001043382756727073,
+      "improved": 10,
+      "worsened": 10
+    }
+  },
+  "species": {
+    "hyena": {
+      "queries": 569,
+      "unique_photos": 333,
+      "unique_identities": 41,
+      "baseline": {
+        "map5": 0.9635325131810193,
+        "known_map5": 0.9431407942238267,
+        "unknown_map5": 0.9828767123287672
+      },
+      "supplement": {
+        "map5": 0.9629466900995899,
+        "known_map5": 0.9383273164861611,
+        "unknown_map5": 0.9863013698630136
+      },
+      "delta": -0.0005858230814294082,
+      "improved": 5,
+      "worsened": 6
+    },
+    "leopard": {
+      "queries": 1260,
+      "unique_photos": 814,
+      "unique_identities": 64,
+      "baseline": {
+        "map5": 0.921058201058201,
+        "known_map5": 0.8793650793650792,
+        "unknown_map5": 0.9755799755799757
+      },
+      "supplement": {
+        "map5": 0.9225925925925926,
+        "known_map5": 0.8855742296918768,
+        "unknown_map5": 0.9710012210012211
+      },
+      "delta": 0.0015343915343915342,
+      "improved": 25,
+      "worsened": 26
+    }
+  },
+  "unchecked_correct_slice": {
+    "queries": 5,
+    "unique_photos": 3,
+    "unique_identities": 3,
+    "baseline": {
+      "map5": 0.04,
+      "known_map5": 0.04,
+      "unknown_map5": null
+    },
+    "supplement": {
+      "map5": 0.4666666666666666,
+      "known_map5": 0.4666666666666666,
+      "unknown_map5": null
+    },
+    "delta": 0.42666666666666664,
+    "improved": 3,
+    "worsened": 0
+  },
+  "identity_cluster_bootstrap_95pct": [
+    -0.002432905791149509,
+    0.00474457347119777
+  ],
+  "gate_passed": false
+}

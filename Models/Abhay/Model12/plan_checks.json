@@ -1,0 +1,24 @@
+{
+  "all_checks_passed": true,
+  "episodes": 36,
+  "stages": [
+    {
+      "stage": 1,
+      "context_animals": 220,
+      "background_animals": 110,
+      "query_animals": 110
+    },
+    {
+      "stage": 2,
+      "context_animals": 330,
+      "background_animals": 220,
+      "query_animals": 110
+    },
+    {
+      "stage": 3,
+      "context_animals": 440,
+      "background_animals": 330,
+      "query_animals": 110
+    }
+  ]
+}

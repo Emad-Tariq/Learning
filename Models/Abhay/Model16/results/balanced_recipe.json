@@ -1,0 +1,8 @@
+{
+  "variant": "direct",
+  "fit": 16,
+  "sample_size": 128,
+  "selection": "Maximum development MAP@5. No competition scores used.",
+  "source_sha256": "c795ad3aca8af8d72cebc7f06db0be9b0f47cd5bd1fd13c47b3c465844193e7e",
+  "shared_recipe_sha256": "6319541662a8c85e01348f115fa65483ec2a141db0931182750547dbd7ff97a6"
+}

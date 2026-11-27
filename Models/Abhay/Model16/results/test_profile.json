@@ -1,0 +1,26 @@
+{
+  "hyena": {
+    "queries": 1217,
+    "references": 1912,
+    "no_gallery_sift7": 658,
+    "no_gallery_sift7_with_query_sift7": 295,
+    "gallery_sift7_with_stronger_query": 182,
+    "median_best_gallery_cosine": 0.5178736448287964,
+    "median_best_query_cosine": 0.5794556736946106,
+    "hull_leader_disagrees_with_raw": 375,
+    "hull_leader_disagrees_with_single_projected": 307,
+    "no_query_viewpoint": 0
+  },
+  "leopard": {
+    "queries": 1574,
+    "references": 5251,
+    "no_gallery_sift7": 554,
+    "no_gallery_sift7_with_query_sift7": 288,
+    "gallery_sift7_with_stronger_query": 408,
+    "median_best_gallery_cosine": 0.5359159111976624,
+    "median_best_query_cosine": 0.5792223215103149,
+    "hull_leader_disagrees_with_raw": 515,
+    "hull_leader_disagrees_with_single_projected": 473,
+    "no_query_viewpoint": 42
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "format_valid": true,
+  "rows": 2791,
+  "columns": [
+    "id",
+    "predictions"
+  ],
+  "unique_ids": true,
+  "exact_sample_order": true,
+  "labels_per_row": 5,
+  "distinct_labels": true,
+  "labels_valid_for_species": true,
+  "index_column_absent": true,
+  "model": "Model 14 (experimental)",
+  "changed_from_model12": 1885,
+  "csv_sha256": "9b8d565a864b1adb578bf0e8a1c15593c205fe93f291c39b8821af4c4a441518"
+}

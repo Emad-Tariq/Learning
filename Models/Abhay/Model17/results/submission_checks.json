@@ -1,0 +1,40 @@
+{
+  "rows": 2791,
+  "sha256": "769259eac51354855cf9e21967881c028ec002de54c5fb992bece4bd9b1d7099",
+  "changed_first_vs_model8": 130,
+  "changed_first_from_linking": 52,
+  "no_gallery_strong_peer": 583,
+  "changed_first_from_linking_in_subgroup": 17,
+  "model17_new_first": 1189,
+  "model8_new_first": 1122,
+  "holdout_strata": [
+    {
+      "size": "large",
+      "weak": false,
+      "appearances": 1084,
+      "before": 0.8637300123001229,
+      "after": 0.8715713407134071
+    },
+    {
+      "size": "large",
+      "weak": true,
+      "appearances": 302,
+      "before": 0.902980132450331,
+      "after": 0.9150110375275937
+    },
+    {
+      "size": "small",
+      "weak": false,
+      "appearances": 1903,
+      "before": 0.8970660360833771,
+      "after": 0.8952618672271851
+    },
+    {
+      "size": "small",
+      "weak": true,
+      "appearances": 933,
+      "before": 0.9072883172561629,
+      "after": 0.9176848874598071
+    }
+  ]
+}

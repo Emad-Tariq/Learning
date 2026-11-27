@@ -1,0 +1,58 @@
+{
+  "test": {
+    "hyena": {
+      "queries": 1217,
+      "gallery": 1912,
+      "median_raw_query_gallery_gap": 0.01995861530303955,
+      "median_fixed_exposure_gap": 0.008779734373092651
+    },
+    "leopard": {
+      "queries": 1574,
+      "gallery": 5251,
+      "median_raw_query_gallery_gap": 0.003417462110519409,
+      "median_fixed_exposure_gap": 0.016929179430007935
+    }
+  },
+  "58071": {
+    "hyena": {
+      "queries": 194,
+      "gallery": 1718,
+      "median_raw_query_gallery_gap": -0.0032203644514083862,
+      "median_fixed_exposure_gap": 0.12380549311637878
+    },
+    "leopard": {
+      "queries": 261,
+      "gallery": 4990,
+      "median_raw_query_gallery_gap": 0.02403724193572998,
+      "median_fixed_exposure_gap": 0.12893494963645935
+    }
+  },
+  "58072": {
+    "hyena": {
+      "queries": 210,
+      "gallery": 1687,
+      "median_raw_query_gallery_gap": 0.039175570011138916,
+      "median_fixed_exposure_gap": 0.13195666670799255
+    },
+    "leopard": {
+      "queries": 268,
+      "gallery": 4804,
+      "median_raw_query_gallery_gap": 0.03800956904888153,
+      "median_fixed_exposure_gap": 0.13104529678821564
+    }
+  },
+  "58073": {
+    "hyena": {
+      "queries": 199,
+      "gallery": 1713,
+      "median_raw_query_gallery_gap": 0.0051499903202056885,
+      "median_fixed_exposure_gap": 0.1058574914932251
+    },
+    "leopard": {
+      "queries": 270,
+      "gallery": 4904,
+      "median_raw_query_gallery_gap": 0.0643511414527893,
+      "median_fixed_exposure_gap": 0.13726334273815155
+    }
+  }
+}

@@ -14,7 +14,20 @@ Dewang:
   Public Scoreboard: 0.77431
 
 Abhay:
-- **Model 5 — Open-Set Score Fusion (OSSF):** Implemented final-stage logistic fusion of unknown-detector, candidate-ranking, similarity, viewpoint and SIFT evidence on top of Dalvin's Model 3b. Retrieval and conditional known-identity ranking remain shared across the legacy-rule, detector-only and learned-fusion comparisons.
-- **Validation (24 November 2026):** Evaluated on 506 queries (349 known, 157 unknown) using identity-disjoint sequential stacking stages, calibration and outer validation. MAP@5: legacy rule **0.916206**, detector-only **0.909947**, OSSF **0.911594**. Fusion delta: **-0.00461133**. These are validation scores, not Kaggle leaderboard scores.
-- **Error analysis:** Known-query MAP@5 increased from **0.887106** to **0.890449**, while unknown-query MAP@5 decreased from **0.980892** to **0.958599**. The loss on unseen animals outweighed the gain on known animals; the legacy rule remains strongest on this split. No overall improvement or leaderboard gain is claimed. Detailed results and limitations are recorded in `Models/Abhay/RESULTS.md`.
-- **Reproducibility:** Added self-contained Kaggle and Windows notebooks, explicit feature-ID alignment, SIFT archive/folder support, split manifests, checkpoints, prediction/error diagnostics, dependency specifications and three passing synthetic tests. Baseline attribution is retained in `provenance.json`; runtime data and artifacts are excluded from Git.
+- **EDA:** Implemented metadata, identity-frequency, sparse-gallery, viewpoint/side-coverage, near-duplicate, embedding retrieval and SIFT diagnostics, with reproducible scripts, CSV tables, plots and an HTML report. Compared photo- and identity-weighted retrieval and isolated candidate omission, ranking and new-animal placement failure modes.
+- **Research:** Investigated retrieval hubness, nuisance projection, gallery calibration and geometric verification coverage; retained measured limitations and negative experiments.
+- **Model 5 — Open-Set Score Fusion (OSSF):** Implemented and evaluated the approach documented in `Models/Abhay/Model5/MODEL.md`.
+- **Model 6 — Pairwise Identity Verification (PIV):** Implemented and evaluated the approach documented in `Models/Abhay/Model6/MODEL.md`.
+- **Model 7 — Nuisance Evidence Retrieval (NER):** Implemented and evaluated the approach documented in `Models/Abhay/Model7/MODEL.md`.
+- **Model 8 — Raw and LDA union shortlist:** Implemented and evaluated the approach documented in `Models/Abhay/Model8/MODEL.md`.
+- **Model 9 — Coverage-aware residual scoring:** Implemented and evaluated the approach documented in `Models/Abhay/Model9/MODEL.md`.
+- **Model 10 — Difficult-episode retraining and coverage-input follow-up:** Implemented and evaluated the approach documented in `Models/Abhay/Model10/MODEL.md`.
+- **Model 11 — Full-vector MLP evidence for novelty detection:** Implemented and evaluated the approach documented in `Models/Abhay/Model11/MODEL.md`.
+- **Model 12 — Larger-gallery retraining:** Implemented and evaluated the approach documented in `Models/Abhay/Model12/MODEL.md`.
+- **Model 13 — Joint ranking, regularized heads and PLDA evidence:** Implemented and evaluated the approach documented in `Models/Abhay/Model13/MODEL.md`.
+- **Model 14 — Query-neighbour score sharing:** Implemented and evaluated the approach documented in `Models/Abhay/Model14/MODEL.md`.
+- **Model 15 — Gallery-conditioned album matching and sparse-reference specialist:** Implemented and evaluated the approach documented in `Models/Abhay/Model15/MODEL.md`.
+- **Model 16 — Independent joint known/new scorer:** Implemented and evaluated the approach documented in `Models/Abhay/Model16/MODEL.md`.
+- **Model 17 — Gallery-trained metric graph and learned sighting links:** Implemented and evaluated the approach documented in `Models/Abhay/Model17/MODEL.md`.
+- **Measured results:** Model 12 improved matched larger-gallery validation MAP@5 from 0.878358 to 0.907654. Model 5 scored 0.911594 versus its 0.916206 baseline; Model 6 and Models 8–11 did not establish overall gains. Models 14–15 had small local gains with uncertainty including zero; Models 16–17 did not beat the specialist on paired confirmation. Different evaluation protocols must not be compared as one leaderboard.
+- **Reproducibility and documentation:** Added identity-disjoint roles, duplicate-group-aware episodes, matched ablations, per-query/species/coverage diagnostics, checkpointing, independent audits, local/Kaggle notebooks and prediction-file validation. Organized Models 5–17 and documented their pipelines and design rationale. Dalvin's reused baseline and Emad's referenced work retain attribution.

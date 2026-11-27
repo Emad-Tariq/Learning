@@ -1,0 +1,73 @@
+{
+  "selected_strengths": {
+    "rank_strength": 0.0,
+    "unknown_strength": 0.5,
+    "primary_is_baseline": false
+  },
+  "evaluated_strengths": {
+    "rank": 0.0,
+    "unknown": 0.5
+  },
+  "baseline_parity": {
+    "queries": 1829,
+    "all_top5_identical": true
+  },
+  "conditional_known_identity_map5": {
+    "baseline": 0.9342415068953919,
+    "coverage": 0.9342415068953919
+  },
+  "query_decisions": {
+    "baseline": {
+      "known_false_new_top1": 0.1311806256306761,
+      "unknown_new_top1": 0.9570405727923628,
+      "mean_known_pnew": 0.11839812402504488,
+      "mean_unknown_pnew": 0.9092646872479397
+    },
+    "rank_only": {
+      "known_false_new_top1": 0.1311806256306761,
+      "unknown_new_top1": 0.9570405727923628,
+      "mean_known_pnew": 0.11839812402504488,
+      "mean_unknown_pnew": 0.9092646872479397
+    },
+    "unknown_only": {
+      "known_false_new_top1": 0.1301715438950555,
+      "unknown_new_top1": 0.9522673031026253,
+      "mean_known_pnew": 0.11732262663197425,
+      "mean_unknown_pnew": 0.9020149356145882
+    },
+    "coverage": {
+      "known_false_new_top1": 0.1301715438950555,
+      "unknown_new_top1": 0.9522673031026253,
+      "mean_known_pnew": 0.11732262663197425,
+      "mean_unknown_pnew": 0.9020149356145882
+    }
+  },
+  "rank_head": {
+    "initial_loss": 0.9643232962840063,
+    "final_loss": 0.8979700904708737,
+    "coefficients": {
+      "log_count": -0.11420196969482661,
+      "small": 0.240041161885851,
+      "log_flank": -0.08239132552207012,
+      "missing_side": 0.11342577122687883,
+      "log_view": -0.05301197622526228,
+      "no_same_view": 0.027568132611959048,
+      "sift_log": -0.05697032491257979,
+      "sift_fraction": -0.03220791951203433,
+      "raw_similarity": -0.1330900827021326,
+      "lda_similarity": -0.1606723172462131,
+      "centroid": -0.15482387696250594,
+      "neighbour": -0.1043555615636144,
+      "stack_neighbour": -0.15417542187122002,
+      "stack_sift": -0.04729745861823569,
+      "missing_x_weak_sift": 0.12839630689258563,
+      "small_x_weak_sift": 0.11026402590050535
+    }
+  },
+  "unknown_head": {
+    "initial_loss": 0.3817715659609901,
+    "final_loss": 0.35833603959725274
+  },
+  "max_observed_rank_correction": 0.9999339167554081,
+  "max_observed_unknown_logodds_correction": 0.6860662788030506
+}

@@ -1,0 +1,10 @@
+{
+  "primary": "protected_all_0.3",
+  "protected_name": "all_0.3",
+  "protected_recipe": [
+    "all",
+    0.3
+  ],
+  "base_recipe_sha256": "6e8500dd9cdaa683b043a35ffe4b42928c813f0e1625350ed3b3a6db1b4e9a33",
+  "selection": "Maximum previously exposed development MAP@5. Confirmation cannot change the primary recipe."
+}

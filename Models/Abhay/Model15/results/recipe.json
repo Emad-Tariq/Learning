@@ -1,0 +1,12 @@
+{
+  "album_weight": 0.15,
+  "development_seed": 2052,
+  "evaluation_seed": 27613,
+  "confirmation_episodes": [
+    47613,
+    47614,
+    47615
+  ],
+  "album_source_sha256": "68d2e0c7c31b928f0f10864444f9c9192cbcac59248a8e6e42f219b45cf7b77f",
+  "selection": "Maximum development MAP@5 over fixed blend grid."
+}

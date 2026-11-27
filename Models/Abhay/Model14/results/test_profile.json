@@ -1,0 +1,61 @@
+{
+  "rows": 2791,
+  "species": {
+    "hyena": {
+      "queries": 1217,
+      "gallery_photos": 1912,
+      "gallery_identities": 205,
+      "viewpoints": {
+        "right": 533,
+        "left": 519,
+        "frontleft": 42,
+        "frontright": 31,
+        "backright": 28,
+        "backleft": 23,
+        "up": 22,
+        "front": 13,
+        "back": 4,
+        "down": 2
+      },
+      "queries_with_at_least_7_gallery_inliers": 559,
+      "median_best_gallery_cosine": 0.5178736448287964,
+      "model12_new_first": 539
+    },
+    "leopard": {
+      "queries": 1574,
+      "gallery_photos": 5251,
+      "gallery_identities": 345,
+      "viewpoints": {
+        "left": 590,
+        "right": 570,
+        "front": 181,
+        "back": 173,
+        "missing": 42,
+        "down": 18
+      },
+      "queries_with_at_least_7_gallery_inliers": 1020,
+      "median_best_gallery_cosine": 0.5359159111976624,
+      "model12_new_first": 674
+    }
+  },
+  "query_graphs": {
+    "near_duplicate": {
+      "edges": 97,
+      "linked_queries": 143,
+      "components": 2710,
+      "largest_component": 4
+    },
+    "dual_evidence": {
+      "edges": 615,
+      "linked_queries": 640,
+      "components": 2381,
+      "largest_component": 11
+    },
+    "strong_geometry": {
+      "edges": 778,
+      "linked_queries": 762,
+      "components": 2299,
+      "largest_component": 12
+    }
+  }
+}

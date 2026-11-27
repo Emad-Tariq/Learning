@@ -1,0 +1,18 @@
+{
+  "headline": "Larger-gallery retraining improves the paired validation score from 0.878358 to 0.907654.",
+  "summary": "The fixed larger-gallery training arm gains 0.029297 MAP@5 on the identical larger-gallery validation episodes. All three episodes, both species and the pooled known/unknown groups improve. The unchanged baseline is reproduced exactly. The predeclared conservative gate passes, but this remains one previously inspected identity allocation rather than a leaderboard result.",
+  "findings": [
+    "Overall MAP@5 improves by 0.029297, with a conditional animal-cluster 95% bootstrap interval of [0.016626, 0.046145]. Of 1,829 query appearances, 154 improve and 46 worsen. Top-one accuracy rises from 82.94% to 87.42%.",
+    "Known-animal MAP@5 rises from 0.837773 to 0.850589; unknown-animal MAP@5 rises from 0.926352 to 0.975139. Unknown top-one detection rises from 86.75% to 95.23%. About 76% of the pooled MAP gain comes from unknown-query outcomes. All scoring heads were retrained, so this does not isolate the detector as the sole cause.",
+    "The per-episode gains are +0.039261, +0.027507 and +0.020758. Hyena MAP@5 rises from 0.878852 to 0.935677; leopard MAP@5 rises from 0.878135 to 0.895000.",
+    "The improvement is not uniform within species: known-hyena MAP@5 rises from 0.835981 to 0.885921, while known-leopard MAP@5 slips slightly from 0.838469 to 0.836881. Unknown results improve for both species. Known-leopard matching remains an important unresolved weakness.",
+    "Missing-side known-query MAP@5 improves from 0.235714 to 0.283673 across 49 appearances, and small true-identity galleries improve from 0.515050 to 0.572015 across 134 appearances. These slices are still difficult, small, and overlapping; the experiment does not establish a viewpoint-invariance fix.",
+    "Actual saved estimator settings and feature schemas match the unchanged baseline at all three stages. All original training queries, truths and own-identity reference photos are preserved. No validation or future-stage query identity enters an earlier fitting context. Independent reconstruction reproduces every final ranking and metric, and all 250 sampled new cross-role matches agree with the original OpenCV matcher."
+  ],
+  "next_steps": [
+    "Use this retrained stack as the preferred local candidate for the larger-gallery protocol, while retaining the original checkpoint for comparison. The trained artifact is saved separately and no competition submission has been generated.",
+    "Freeze this recipe and confirm it on another predeclared outer identity allocation before treating the gain as robust across retraining or claiming a leaderboard improvement. Keep evaluation animals out of all fitting contexts.",
+    "Prioritise the remaining known-leopard errors under this larger-gallery protocol when choosing the next matching improvement. The current gain is mainly better handling of unknown animals, rather than a general solution to weak identity evidence.",
+    "Keep the larger-gallery evaluation and separate known/unknown and species reporting. Query-pool and encounter composition remain smaller/different than real inference and should be the next simulation stress test, rather than tuning this arm on the current validation outcomes."
+  ]
+}

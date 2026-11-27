@@ -1,0 +1,17 @@
+{
+  "format_valid": true,
+  "rows": 2791,
+  "columns": [
+    "id",
+    "predictions"
+  ],
+  "unique_ids": true,
+  "exact_sample_order": true,
+  "labels_per_row": 5,
+  "distinct_labels": true,
+  "labels_valid_for_species": true,
+  "index_column_absent": true,
+  "csv_sha256": "18c929ef279cd44ff945c52b833ef1be1681a410ff695814c3e6e94a6d793d3b",
+  "prediction_seconds": 4.188000000000102,
+  "new_individual_first": 1213
+}

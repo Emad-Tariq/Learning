@@ -1,0 +1,32 @@
+{
+  "average_union_candidates": 19.60579551667578,
+  "candidate_count_min": 16,
+  "candidate_count_max": 25,
+  "recovered_candidate_appearances": 2,
+  "recovered_unique_queries": 2,
+  "recovered_in_final_top5": 0,
+  "recovered_mean_rr5_union": 0.0,
+  "query_types": {
+    "False": {
+      "mean_baseline_pnew": 0.11839812402504488,
+      "mean_union_pnew": 0.11705221484943334,
+      "mean_baseline_rawsum": 0.8595378061835719,
+      "mean_union_rawsum": 0.8614901686468793
+    },
+    "True": {
+      "mean_baseline_pnew": 0.9092646872479397,
+      "mean_union_pnew": 0.9073745806996724,
+      "mean_baseline_rawsum": 0.04988567663827512,
+      "mean_union_rawsum": 0.05616584717783659
+    }
+  },
+  "baseline_reference_audit": {
+    "episode": 22052,
+    "queries": 627,
+    "identical_top5": true,
+    "max_abs_final_pnew_difference": 0.0,
+    "max_abs_candidate_score_difference": 0.0,
+    "reference_checkpoint": "C:\\Users\\SANGEETA-DAILY\\Documents\\ChatGPT\\Animal-ReID\\Models\\Abhay\\Model7\\local_runs\\paired_2052\\paired_models.joblib",
+    "reproduces_saved_predictions": true
+  }
+}

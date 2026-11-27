@@ -1,0 +1,12 @@
+{
+  "identity_role_and_score_checks": "passed",
+  "query_appearances": 1829,
+  "unique_query_images": 1147,
+  "queried_identities": 105,
+  "pooled_delta": 0.0014488791689447784,
+  "identity_cluster_bootstrap_95_interval": [
+    -0.0016735787077541235,
+    0.004568873999546371
+  ],
+  "note": "Conditional on this fitted model pair and outer identity partition; not a leaderboard confidence interval."
+}

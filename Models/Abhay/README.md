@@ -1,111 +1,38 @@
-# Model 5: Open-Set Score Fusion (OSSF)
+# Abhay: EDA and Models 5–17
 
-Author contribution: Abhay. Baseline: Dalvin Model 3b (`Models/Dalvin/reid_pipeline.py`).
+Each numbered model has its own folder. Open its `MODEL.md` for how it was built, why that design was chosen, the evidence that motivated it and the recorded outcome. Existing source, notebooks, detailed run instructions and result artifacts remain alongside the model.
 
-OSSF learns a logistic combination of existing unknown-animal evidence for the **final placement of `new_individual`**. Retrieval, conditional known-identity ranking and earlier stacking rounds are shared with the baseline. The comparison includes Dalvin's legacy rule and the existing detector alone.
+| Model | Main approach |
+| --- | --- |
+| [5](Model5/MODEL.md) | Open-Set Score Fusion (OSSF) |
+| [6](Model6/MODEL.md) | Pairwise Identity Verification (PIV) |
+| [7](Model7/MODEL.md) | Nuisance Evidence Retrieval (NER) |
+| [8](Model8/MODEL.md) | Raw and LDA union shortlist |
+| [9](Model9/MODEL.md) | Coverage-aware residual scoring |
+| [10](Model10/MODEL.md) | Difficult-episode retraining and coverage-input follow-up |
+| [11](Model11/MODEL.md) | Full-vector MLP evidence for novelty detection |
+| [12](Model12/MODEL.md) | Larger-gallery retraining |
+| [13](Model13/MODEL.md) | Joint ranking, regularized heads and PLDA evidence |
+| [14](Model14/MODEL.md) | Query-neighbour score sharing |
+| [15](Model15/MODEL.md) | Gallery-conditioned album matching and sparse-reference specialist |
+| [16](Model16/MODEL.md) | Independent joint known/new scorer |
+| [17](Model17/MODEL.md) | Gallery-trained metric graph and learned sighting links |
 
-The completed validation run did **not** improve overall MAP@5: baseline **0.916206**, detector-only **0.909947**, OSSF **0.911594**, delta **-0.0046113306982873414**. Fusion improves known-animal MAP@5 slightly but loses more on unseen animals. Dalvin's rule remains the strongest method on this split. Full analysis: [RESULTS.md](RESULTS.md). These are validation results, not leaderboard results.
+## EDA and research
 
-## Method
+[EDA design findings](EDA/DESIGN_FINDINGS.md) summarize the labelled-data observations used to motivate the later experiments. The EDA covers identity imbalance, sparse reference albums, near duplicates, viewpoint/side coverage, raw versus PCA/LDA retrieval, SIFT support and known/new score overlap. EDA scripts, tables and plots remain in `EDA/`. Retrieval, hubness, nuisance-projection and gallery-calibration investigations are retained in `Research/` and the existing research notes. The [SIFT coverage audit](sift_coverage/README.md) is supporting analysis, not a separately numbered model.
 
-1. Normalize supplied MIEW-ID descriptors; process each species separately.
-2. Apply PCA (up to 384 dimensions) and shrinkage LDA fitted using episode gallery labels. PCA also sees unlabelled episode queries.
-3. Compute raw/projected similarities, per-identity maximum and top-two scores, centroid similarity, viewpoint evidence and query-neighbour features.
-4. Verify selected same-species neighbours using RootSIFT, ratio testing and partial-affine RANSAC. Retrieve 15 candidate identities using LDA similarity and SIFT evidence.
-5. Train Dalvin's unknown detector, known-query candidate scorer and all-query candidate scorer. Apply three sequential stacking stages using neighbour predictions.
-6. Fit median imputation, standardization and logistic regression (`C=1`) on a separate calibration identity group. Inputs include detector and legacy probabilities, candidate-score summaries, margins, SIFT support, viewpoint availability, gallery support and species.
-7. Rank `new_individual` with score `p_new` against known candidates with scores `(1-p_new)*P(identity|known)`. Known identity order is shared across methods, with deterministic tie handling.
+The 25 November EDA came after Models 5–7 and their earlier research. Its observations provide retrospective context for those models and direct motivation for later coverage experiments; the documentation distinguishes those roles.
 
-The legacy probability is `(detector_probability + clip(1-sum(binary_candidate_scores), 0, 1))/2`. OSSF tests whether learning this combination improves MAP@5. Logistic loss optimizes binary likelihood; a learned fusion is not guaranteed to improve calibration or ranking. No new image features, raw-image processing or pretrained models are introduced.
+## Layout and execution
 
-## Evaluation protocol
-
-Identities are shuffled per species with seed 2026. Calibration receives 20%, outer validation 20%, and stack training 60%. The training identities are divided into three non-overlapping stage groups. Stage 1 models produce features for stage 2 identities; stages 1-2 produce features for stage 3 identities. Models from earlier stages have not trained on later-stage identities. This replaces the baseline's simulation-level folds to reduce repeated-identity overlap between supervised stages and final evaluation.
-
-Within each episode, 20-35% of identities are removed from the gallery and labelled `new_individual` for evaluation. Remaining identities supply gallery and known-query sightings where possible. Near-duplicate connected components are held out whole; selected components are never truncated. Singletons and identities with one component may remain gallery-only. Training mixes four duplicate-grouping regimes. Calibration and outer evaluation use cosine >0.95 or >=100 verified SIFT inliers. Unverified pairs limit duplicate detection, so encounter separation is approximate.
-
-The base stack is frozen before calibration. Repeated calibration sightings receive inverse occurrence weights so each image has total weight one. Fusion is frozen before outer validation. All three methods then use identical validation queries and trained stack outputs. Gallery labels are available to episode retrieval/LDA, as in the competition setup; query truth is excluded from predictor features. Competition test queries are excluded from the validation pipeline.
-
-Default configuration: three rounds, 12 simulations per stage, four calibration episodes, 150 SIFT neighbours, 15 candidates, 400 candidate-scorer trees and up to 300 detector trees, two CPU workers. The pasted result did not include the complete runtime configuration or library versions; these defaults are not asserted as verified run metadata.
-
-This protocol uses fewer training identities and smaller galleries per stage than the original full-data baseline. Its scores do not reproduce the team's public score or original simulated validation score. Gallery size and unknown prevalence can shift between calibration, evaluation and test. A single 506-query split does not establish statistical superiority. The reported evaluation has now been examined; further tuning requires calibration/development data and a new reserved outer evaluation for final claims.
-
-## Files
-
-| File | Purpose |
-|---|---|
-| `train_eval.py` | Training, final-stage fusion, controlled evaluation and optional submissions |
-| `dalvin_core.py` | Adapted baseline components; attribution retained |
-| `Abhay_OpenSet_Calibration.ipynb` | Self-contained Kaggle notebook |
-| `Abhay_Local_PC.ipynb` | Self-contained Windows notebook |
-| `test_pipeline.py` | Synthetic integration and identity-separation tests |
-| `requirements.txt` | Runtime dependencies |
-| `provenance.json` | Baseline source path, source hash and adaptation list |
-| `RESULTS.md`, `results/` | Measured validation result and analysis |
-| `CONTRIBUTION.md` | Contribution record and verification |
-| `GIT_WORKFLOW.md` | Review, commit and push commands |
-
-Notebook titles and embedded source identify Model 5. Internal method keys (`dalvin_rule`, `detector_only`, `abhay_fusion`) remain stable for compatibility with existing results. Notebook outputs and execution counters are cleared in the repository versions; recorded metrics are stored separately.
-
-## Dataset
-
-Competition: https://www.kaggle.com/competitions/projectwild3/data
-
-```
-<dataset parent>/
-  reid_student_data_main/
-    train.csv
-    test.csv
-    miewid_ids.csv
-    miewid_features.npy
-    sample_submission.csv
-  sift_features_train.npz/
-  sift_features_test.npz/
-```
-
-SIFT sources may be compressed NPZ archives or extracted directories containing `*_desc.npy` and `*_xy.npy` arrays. The runner searches the metadata directory and its two parent levels. Extracted nested NPY files are supported. Original image folders are unused. Global features are aligned through `miewid_ids.csv`, rather than assumed to follow concatenated CSV order.
-
-## Kaggle execution
-
-Import `Abhay_OpenSet_Calibration.ipynb`, attach the existing `projectwild3` competition input, and execute cells in order. The metadata directory is detected automatically when exactly one complete match exists. `DATA` supports an explicit override. Embedded scripts and outputs are written under `/kaggle/working`; input files remain read-only. A separate code or private data upload is unnecessary.
-
-The optional install cell targets the active kernel. The optional reduced execution check writes separate artifacts and is not a quality benchmark. Full training uses CPU libraries; selecting a GPU does not automatically accelerate SIFT, PCA/LDA or the configured LightGBM models. Runtime has not been systematically benchmarked.
-
-## Windows execution
-
-The local notebook defaults to `Path.home()/"Downloads"` for the dataset parent. The project directory is resolved from the notebook working directory or its `Models/Abhay` child and can be overridden. Results are written to timestamped `local_runs` subdirectories.
-
-From `Models/Abhay` in PowerShell:
+Model 5's formerly root-level scripts, notebooks, requirements, results and local run folders are now in `Model5/`. For example, from the repository root:
 
 ```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt jupyterlab ipykernel
-.\.venv\Scripts\python.exe -m jupyter lab
+python Models/Abhay/Model5/train_eval.py --help
+python Models/Abhay/Model5/test_pipeline.py -v
 ```
 
-CLI equivalent:
+Models 6–17 retain their existing relative locations so sibling imports remain valid. These folders are experiment units and some share implementation: Models 8–13 use the preserved Model 7 baseline/protocol; later models also use earlier checkpoints. Models 12–13 refer to the repository's `analysis/domain_shift` helpers and saved manifests. Models 14–17 require original competition inputs and the assets/teammate sources described in their runners. Copying the model folders alone does not replace those external inputs. Existing absolute paths and checkpoint assumptions remain visible in the original code; this organization does not claim a new environment was provisioned or training was rerun.
 
-```powershell
-python train_eval.py --data "$env:USERPROFILE\Downloads\reid_student_data_main" --output ./abhay_output
-python test_pipeline.py -v
-```
-
-`RUN_SMOKE=True` enables a reduced notebook execution check. `PREDICT_TEST=True` adds test CSV generation after validation. Neither switch changes the default full experiment unless enabled. A new timestamped local run starts a new cache; the same output directory is required for cache reuse. Interrupted model-stage training is not resumed automatically.
-
-## Runtime artifacts
-
-- `metrics.json`: MAP@5, known/unknown scores, rank-one new rates, candidate recall, delta, model name, configuration and library versions.
-- `validation_predictions.csv`, `validation_slices.csv`: per-query scores, predictions and grouped error analysis.
-- `fusion_coefficients.csv`: standardized coefficients; correlated features limit causal interpretation.
-- `identity_roles.csv`, `episode_splits.csv`: reproducible role and episode assignments.
-- `calibration_examples.csv`: targets and inverse-occurrence weights.
-- `models.joblib`: frozen stack, fusion and feature schema.
-- `sift_*.npz`: atomic pair cache keyed by IDs and normalized global features. Only role-local requested pairs are exposed during each phase.
-
-Optional test inference keeps the learned weights frozen and uses the full labelled gallery. It exports `submission_dalvin_rule.csv`, `submission_detector_only.csv` and `submission_abhay_fusion.csv`, validating sample IDs/order, five distinct labels and species consistency. It does not submit to Kaggle or automatically declare a winning method. Full-gallery distribution shift remains a limitation.
-
-## Verification and attribution
-
-Synthetic tests cover feature-ID permutation, compressed and extracted SIFT layouts, empty descriptors, actual LightGBM training through three stacking stages, calibration, independent roles, preserved known-identity ordering and valid test submissions. Both notebooks' code cells compile and embedded modules match the standalone versions. The local data preflight verified 7,163 training sightings, 2,791 test sightings, a 9,954 x 2,152 feature matrix and both SIFT sources.
-
-Dalvin's source attribution is retained in code and `provenance.json`. Adaptations include import-safe data loading; deterministic seeds and thread settings; bounded PCA dimension; guarded normalization; portable SIFT thread execution with locked ZIP reads; ID alignment; stable score ties; independent evaluation roles; final-stage fusion; and diagnostics. The original shortlist and zero treatment of unverified SIFT pairs are retained. No algorithm change is introduced by documenting the measured result.
+Use each model's existing notebook/run instructions and dependency file where provided. Runtime caches, fitted weights and local runs remain associated with their model. `CONTRIBUTION.md` records Abhay's work across this collection; the project-wide contribution log is at `../../Contribution_logs.md`.

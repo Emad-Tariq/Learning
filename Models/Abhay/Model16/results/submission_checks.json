@@ -1,0 +1,33 @@
+{
+  "rows": 2791,
+  "valid": true,
+  "sha256": "736ee0f8754a8cd5ae64d6c42410c6ec8eb93ac500dff74008e598cbfb5dfa3c",
+  "prior_adjustment": {
+    "leopard": {
+      "training_prior": 0.5191519372327765,
+      "estimated_prior": 0.30153555736362875,
+      "raw_mean": 0.3934984147463836,
+      "applied_log_odds": -0.0
+    },
+    "hyena": {
+      "training_prior": 0.48412698412698413,
+      "estimated_prior": 0.38911775216807404,
+      "raw_mean": 0.41860046668777867,
+      "applied_log_odds": -0.0
+    }
+  },
+  "top1_changes_from_prior": 0,
+  "new_first": 1247,
+  "test_weak_gallery": 1212,
+  "weak_gallery_with_stronger_query_geometry": 583,
+  "by_species": {
+    "hyena": {
+      "queries": 1217,
+      "new_first": 544
+    },
+    "leopard": {
+      "queries": 1574,
+      "new_first": 703
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "query_appearances": 1829,
+  "known_queries": 991,
+  "known_correct_shortlisted": 970,
+  "shortlisted_correct_without_sift": 5,
+  "gap_fraction_shortlisted_known": 0.005154639175257732,
+  "gap_unique_photos": 3,
+  "gap_extra_ge7": 2,
+  "gap_baseline_map5": 0.04,
+  "gap_baseline_outside_top5": 4,
+  "all_candidate_rows": 27435,
+  "unchecked_candidate_rows": 6607,
+  "supplemented_candidate_rows_ge7": 18,
+  "baseline_prediction_parity": true,
+  "species": {
+    "hyena": {
+      "shortlisted_known": 277,
+      "without_sift": 0,
+      "extra_ge7": 0
+    },
+    "leopard": {
+      "shortlisted_known": 693,
+      "without_sift": 5,
+      "extra_ge7": 2
+    }
+  }
+}

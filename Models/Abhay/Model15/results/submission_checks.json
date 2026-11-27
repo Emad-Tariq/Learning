@@ -1,0 +1,63 @@
+{
+  "format_valid": true,
+  "rows": 2791,
+  "columns": [
+    "id",
+    "predictions"
+  ],
+  "unique_ids": true,
+  "exact_sample_order": true,
+  "labels_per_row": 5,
+  "distinct_labels": true,
+  "labels_valid_for_species": true,
+  "index_column_absent": true,
+  "sha256": "fdd632fc5362178d4e71cc9830edf251ed102c1f8b25300060a97916a1c11ce0",
+  "emad_top1_disagreements": 169,
+  "emad_known_new_disagreements": 153,
+  "emad_only_new": 31,
+  "model15_only_new": 122,
+  "model15_new_first": 1213,
+  "emad_new_first": 1122,
+  "expanded_candidate_rows": 55318,
+  "emad_exact_prediction_list_changes": 2772,
+  "blend": 0.3,
+  "policy": "protected_all_0.3",
+  "by_species_and_sift": [
+    {
+      "species": "hyena",
+      "gallery_sift_7plus": false,
+      "queries": 658,
+      "top1_disagreements": 49,
+      "known_new_disagreements": 48,
+      "emad_new_first": 399,
+      "model15_new_first": 431
+    },
+    {
+      "species": "hyena",
+      "gallery_sift_7plus": true,
+      "queries": 559,
+      "top1_disagreements": 30,
+      "known_new_disagreements": 20,
+      "emad_new_first": 90,
+      "model15_new_first": 108
+    },
+    {
+      "species": "leopard",
+      "gallery_sift_7plus": false,
+      "queries": 554,
+      "top1_disagreements": 39,
+      "known_new_disagreements": 38,
+      "emad_new_first": 467,
+      "model15_new_first": 479
+    },
+    {
+      "species": "leopard",
+      "gallery_sift_7plus": true,
+      "queries": 1020,
+      "top1_disagreements": 51,
+      "known_new_disagreements": 47,
+      "emad_new_first": 166,
+      "model15_new_first": 195
+    }
+  ]
+}

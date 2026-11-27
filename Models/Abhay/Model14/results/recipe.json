@@ -1,0 +1,32 @@
+{
+  "selected": "dual_evidence_mixed",
+  "recipe": {
+    "link": "dual_evidence",
+    "blend": 0.5,
+    "all_candidate_mix": 0.5
+  },
+  "links": {
+    "near_duplicate": [
+      0.9,
+      30,
+      0.97
+    ],
+    "dual_evidence": [
+      0.7,
+      20,
+      0.94
+    ],
+    "strong_geometry": [
+      0.5,
+      35,
+      0.93
+    ]
+  },
+  "outer_seed": 27613,
+  "episodes": [
+    47613,
+    47614,
+    47615
+  ],
+  "promotion": "Positive overall delta and clustered interval lower bound, positive delta in at least two episodes, and nonnegative known and unknown deltas."
+}

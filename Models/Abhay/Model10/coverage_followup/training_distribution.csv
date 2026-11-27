@@ -1,0 +1,4 @@
+method,episodes,difficult_episodes,query_appearances,known,unknown,missing_side,small_gallery,mean_gallery_images
+baseline,36,0,18086,10414,7672,566,1441,828.1111111111111
+difficult25,36,9,18086,10414,7672,1235,2779,733.8333333333334
+difficult50,36,18,18086,10414,7672,1859,3855,646.3888888888889

@@ -1,0 +1,20 @@
+{
+  "format_valid": true,
+  "rows": 2791,
+  "columns": [
+    "id",
+    "predictions"
+  ],
+  "unique_ids": true,
+  "exact_sample_order": true,
+  "labels_per_row": 5,
+  "distinct_labels": true,
+  "labels_valid_for_species": true,
+  "index_column_absent": true,
+  "sha256": "db57f98ef3e7f032c4ec2fbedb3009cb20adab19ece832ba26361f1508cc2d53",
+  "routed": 420,
+  "ranked_list_changes_vs_model14": 371,
+  "emad_top1_disagreements": 170,
+  "emad_known_new_disagreements": 154,
+  "recipe_sha256": "153605057fbfffc9127f78e43602e4e66a66c92588f33bdeb8cc637a6b0c4b56"
+}

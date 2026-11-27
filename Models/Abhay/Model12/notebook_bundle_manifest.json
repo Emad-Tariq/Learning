@@ -1,0 +1,23 @@
+{
+  "model": "Model 12: larger-gallery Dalvin",
+  "training_checkpoint_sha256": "28d3a7bc2adf6d35554a34328c59e296e5b65845c46e851aa6ec9416b8bb57ee",
+  "sift_graph_pairs": 455257,
+  "train_images": 7163,
+  "test_images": 2791,
+  "files": {
+    "model/stage1_detector.txt": "49875027c9320656442c345d1658f4c705cb3705c2edf56e5b8290c2af4875dc",
+    "model/stage1_closed.txt": "70b248fd3b4cf2b421af29f8fbd47929ba2b3270cca442f49b7bf67a1f77f95e",
+    "model/stage1_all.txt": "d76d83946901dae7d78bc3d5bc8118b82198292ab0749e235bd582b9cf771f5b",
+    "model/stage2_detector.txt": "471d8e26f725bed02b926079a712840b0937655845a87023ff443f2f42c321c5",
+    "model/stage2_closed.txt": "d26b0be7d58caff02c1db9ef73b72a2aa0e5d00b6a968c1813af96abb82df8e7",
+    "model/stage2_all.txt": "55b5124dc89e5e961dddf05366df228edb4663b6236112c282bad6bed63e01f5",
+    "model/stage3_detector.txt": "5b32dd505a245e55c4cdbfac16c4054f2b456afa535a7c1975719c36ab22386c",
+    "model/stage3_closed.txt": "300f7d9807b46380de6b5ba76a1d011a7ac231c3455ac4e6eeaefac939e08fbf",
+    "model/stage3_all.txt": "6cf4e21e7a86f37462a483a47760cc4e383667d3a5e321a3b157b52fc8234f06",
+    "model_schema.json": "6aa99f0e3382b50a5c7e208cbcd274960a401aec6407d61583a87f70a4f1ed1f",
+    "full_test_sift_graph.npz": "fc78f671eb095d2b8744e857428e38b3aac7f00c55859ca0a69366bf2af2ea9b",
+    "input_fingerprint.json": "b07ecc7248e9b25e3bb57d67c450d8c8cbb5c886862b8e01bafdd42ff1d5539d",
+    "training_metrics.json": "e48355815781903881d45f00a93909195b6687bd00b8e911a9ae3529c5703938",
+    "training_provenance.json": "84d388c1a0c6e7faf062c150da128e9f01fe4e8d7832c8abb40841ba8e194b7a"
+  }
+}

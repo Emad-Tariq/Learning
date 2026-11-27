@@ -1,0 +1,11 @@
+{
+  "weight": 0.3,
+  "additional_episodes": [
+    58071,
+    58072,
+    58073
+  ],
+  "scope": "Leading known Model 14 identity has at most three eligible gallery photos.",
+  "selection": "Highest pooled development MAP@5 on both previously examined allocations.",
+  "source_sha256": "0fb8d71ba3857fc8de0a6e8f6496a49fddc8877316954aa424821c95d6266bc9"
+}

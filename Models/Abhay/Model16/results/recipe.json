@@ -1,0 +1,8 @@
+{
+  "variant": "full",
+  "prior_strength": 0.0,
+  "training_episodes": 16,
+  "source_sha256": "a876d903c77d01c2e6fc1366fb4c7adc9108b04bdda4652ccda6a8d6deb1fe4e",
+  "geometry_sha256": "be1568dc8fdfeb970b45f78c46a1c6f9f65d2fa65628e84f654269009f06da4e",
+  "selection": "Highest development MAP@5 among three predeclared prior adjustments; no leaderboard tuning."
+}

@@ -1,0 +1,7 @@
+{
+  "baseline_predictions_reproduced": true,
+  "all_rr5_recomputed": true,
+  "pooled_metrics_recomputed": true,
+  "unique_episode_query_keys": 1829,
+  "gap_unique_photos": 3
+}

@@ -1,0 +1,13 @@
+{
+  "all_checks_passed": true,
+  "all_notebook_code_cells_executed": true,
+  "native_vs_fitted_model_max_probability_error": 0.0,
+  "native_and_original_top5_identical_all_three_stages": true,
+  "independent_csv_rows": 2791,
+  "exact_sample_headers_and_order": true,
+  "five_unique_species_valid_labels_every_row": true,
+  "bad_format_cases_rejected": 9,
+  "csv_sha256": "18c929ef279cd44ff945c52b833ef1be1681a410ff695814c3e6e94a6d793d3b",
+  "notebook_sha256": "62163956c88f3458936577d623c6bd23c38d51e6d7b9aac10d141d391019f4a4",
+  "kaggle_cloud_execution": false
+}
