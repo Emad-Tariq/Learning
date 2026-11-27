@@ -1,0 +1,7 @@
+# Model 4b: LDA + LightGBM + transductive stacking pipeline
+numpy
+pandas
+scipy
+scikit-learn
+lightgbm
+opencv-python-headless<5
