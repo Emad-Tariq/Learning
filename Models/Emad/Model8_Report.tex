@@ -1,0 +1,97 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlist{nosep,leftmargin=*}
+\title{Wildlife Re-identification with Cross-Sighting Evidence}
+\author{Emad Tariq}
+\date{ProjectWild3 --- November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report documents the progression from feature-based wildlife identity retrieval to Model 8, a multi-sighting extension of Dewang's Model 3e. Model 3e ranks known identities using MIEW-ID embeddings, local SIFT verification, viewpoint and gallery evidence, open-set scoring, LightGBM stacking, and a LambdaRank layer. Model 8 adds a gallery-trained pair verifier, local texture retrieval using a RootSIFT VLAD representation, and graph-based propagation of identity evidence between query sightings. In a reserved-animal evaluation, Model 8 improved MAP@5 from 0.89619 to 0.89947. In three additional episodes with galleries of 6,233--6,667 images, MAP@5 improved from 0.86273 to 0.86925. The original Model 8 submission received a public Kaggle score of 0.865.
+\end{abstract}
+
+\section{Task and data}
+Each query image must be assigned a ranked list of five labels. A label is either an identity represented in the labelled gallery or \texttt{new\_individual}, used when the animal is absent from that gallery. The evaluation metric is mean average precision at five (MAP@5): for each query, the reciprocal rank of the first correct label is counted, or zero if no correct label appears in the list.
+
+The competition supplied MIEW-ID feature vectors, image metadata including species and viewpoint, and SIFT descriptors with keypoint coordinates. The two species are hyena and leopard. Identity labels are available for the training gallery. Query identities at test time are hidden. The work therefore treats closed-set identity retrieval and open-set detection as parts of one ranked prediction problem.
+
+\section{Progression to Model 8}
+\subsection{MIEW-ID baseline}
+Model 1 ranked gallery identities by cosine similarity between normalized MIEW-ID vectors. This provided a simple feature-based baseline and established the importance of species-specific ranking.
+
+\subsection{Model 2: local feature verification}
+Model 2 combined MIEW-ID retrieval with SIFT descriptor matching and affine RANSAC verification. It used species-specific thresholds to place \texttt{new\_individual} in the ranked list. The public Kaggle score was 0.765. The approach showed that local visual matches could complement global embeddings.
+
+\subsection{Model 3: learned open-set ranking}
+Model 3 introduced PCA and LDA representations, RootSIFT verification, LightGBM models for unknown detection and candidate identity scoring, and three rounds of transductive stacking. Simulated out-of-fold MAP@5 was reported as 0.916. Subsequent testing showed that simulated validation did not directly predict Kaggle leaderboard performance.
+
+\subsection{Abhay's Model 5: open-set score fusion}
+Abhay tested whether a learned calibration could improve the placement of \texttt{new\_individual} in Dalvin's Model 3 stack. The logistic fusion combined the existing unknown detector with a legacy score derived from the candidate classifier. On a 506-query, identity-disjoint validation set, Model 5 scored 0.911594 MAP@5, below the Dalvin-rule baseline at 0.916206 (a change of $-0.004611$). It slightly improved known-query MAP@5 but reduced unknown-query MAP@5 more substantially. This negative result supported retaining the simpler baseline unknown-score rule and showed that better known-animal decisions alone do not ensure a higher overall score. The reported values are local validation results, not Kaggle leaderboard scores.
+
+\subsection{Dewang's Model 4 family}
+Model 4 developed PCA-whitened retrieval and viewpoint-aware evidence. Model 4b introduced regularized LDA, richer query and candidate features, regime-diverse open-set episodes, mutual RootSIFT matching, and stacked LightGBM ranking. Model 4c added seed bagging and a softmax identity posterior. Later versions added metric learning, neighborhood and graph evidence, query expansion, PLDA, covariate-shift weighting, and a LambdaRank layer. Model 3e was the strongest verified family member, scoring approximately 0.86 publicly. It combined the expanded SIFT geometry, per-query PLDA likelihood ratios, animal-disjoint validation, a test-versus-simulation shift model, three rounds of stacking, and a learned final ranking layer.
+
+\section{Model 8}
+Model 8 starts with Model 3e probabilities and adds evidence that can change both the order of known identities and the candidate set. Its goal is to use repeated sightings: a query image can be ambiguous in isolation while another query of the same animal supplies clearer coat-pattern evidence.
+
+\subsection{Gallery-trained pair verifier}
+For each species, a pair classifier is trained on labelled gallery image pairs. Candidate pairs are retrieved through raw MIEW-ID similarity, a partially whitened projection, local SIFT evidence, and the texture representation described below. Pair features include similarity, local density margins, reciprocal-neighbor evidence, viewpoint agreement, and SIFT match and inlier statistics. The verifier estimates whether a pair shows the same individual.
+
+\subsection{Texture representation}
+RootSIFT descriptors are projected to 48 dimensions. A 64-center MiniBatch K-means vocabulary is learned using development animals, with a cap on descriptors per animal. Each image is represented by a VLAD vector formed by accumulating descriptor residuals for each visual word. Signed square-root normalization and a PCA projection produce a compact texture embedding. This provides a coat-texture similarity signal even when geometric keypoint verification returns few inliers.
+
+\subsection{Cross-sighting identity evidence}
+The pair verifier constructs a weighted graph over query sightings and gallery images. Verified links are symmetrized and cubed to reduce the effect of weak matches. Model 3e candidate probabilities are pooled across one and two graph steps. Direct query-to-gallery links also provide identity support. A regularized kernel identity scorer combines MIEW-ID and texture similarity across gallery images. These signals can add gallery identities that were absent from Model 3e's top-15 shortlist.
+
+A LightGBM candidate classifier combines Model 3e scores, graph-pooled probabilities, direct gallery support, and kernel scores. Its probability is normalized across the candidates and blended with the Model 3e score:
+\[
+s_{\mathrm{final}}(q,c)
+= (1-\lambda)s_{\mathrm{3e}}(q,c)
++ \lambda\frac{p_{\mathrm{pair}}(q,c)}
+{\sum_{c'}p_{\mathrm{pair}}(q,c')}.
+\]
+The development set selected $\lambda=0.65$. The \texttt{new\_individual} candidate participates in this same normalization and remains eligible for the top five.
+
+\section{Validation design}
+Animals were divided into a development group and a held-out evaluation group before fitting the extension. Identities were disjoint across these groups. Ten simulated episodes and a single boosting seed produced development predictions. Four animal folds within the development group selected the blend strength. Six new open-set episodes on held-out animals then compared Model 8 against the Model 3e ranking on identical queries.
+
+A second stress evaluation reused the reserved animals but enlarged the gallery by adding the development animals. It used three fresh episodes with gallery sizes between 6,233 and 6,667 images, closer to the full competition gallery. Confidence intervals were computed by bootstrap resampling animals, preserving the dependence between repeated sightings of the same identity.
+
+\section{Results}
+\begin{table}[h]
+\centering
+\caption{Paired local MAP@5 results. Scores are unweighted query means.}
+\begin{tabular}{lrrrr}
+\toprule
+Evaluation & Queries & Model 3e & Model 8 & Difference \\
+\midrule
+Held-out animals, six episodes & 2,836 & 0.896186 & \textbf{0.899465} & +0.003279 \\
+Large gallery, three episodes & 1,386 & 0.862734 & \textbf{0.869252} & +0.006518 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the six-episode evaluation, the 95\% animal-bootstrap interval for the Model 8 minus Model 3e change was [+0.000573, +0.006186]. In the large-gallery evaluation the corresponding interval was [+0.001325, +0.012859]. On the first evaluation, known-query MAP@5 increased from 0.828444 to 0.834942, while unknown-query MAP@5 changed from 0.982014 to 0.981215. Model 8 gained 32 first-place predictions and lost 13. It recovered four correct known identities that were outside Model 3e's original candidate shortlist.
+
+The original Model 8 CSV received a public Kaggle MAP@5 score of 0.865, compared with 0.86 for the verified Model 3e submission. The separately trained one-seed artifact created later for inference has no reported Kaggle score. The local evaluation results and public leaderboard score are distinct measurements and should not be interchanged.
+
+\section{Inference and submission format}
+Inference uses the fitted Model 8 artifacts and the same feature-extraction and scoring functions used during training. The input is the competition test metadata, MIEW-ID vectors, and SIFT descriptors. For each test image, the pipeline builds Model 3e scores, computes pair and texture evidence, ranks known identities together with \texttt{new\_individual}, and writes a CSV with columns \texttt{id} and \texttt{predictions}. Each \texttt{predictions} value contains five space-separated, distinct labels in descending rank order. The inference output is intended to match the Kaggle sample-submission ID order.
+
+\section{Limitations}
+The local evaluations use simulated open-set episodes and a limited number of held-out animals. The large-gallery check is closer to the competition gallery size, but still does not reproduce the hidden test distribution exactly. A positive local difference does not guarantee an increase on the private leaderboard. The original public score of 0.865 belongs to its particular CSV, not automatically to later retrained artifacts.
+
+\section{Conclusion}
+Model 8 extends Model 3e by connecting local coat texture, geometric image matches, and identity probabilities across sightings. On two paired local evaluations it improved MAP@5, including an evaluation with several thousand gallery images. The original Model 8 Kaggle submission scored 0.865 publicly. The extension is most useful when one sighting is unclear but another provides complementary visual evidence.
+
+\end{document}

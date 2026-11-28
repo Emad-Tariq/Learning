@@ -3,6 +3,7 @@ Emad:
 - **Model 1:** Implemented MIEW-ID cosine similarity baseline for species-aware identity retrieval. Achieved 0.53083 public leaderboard score.
 - **Model 2:** Extended baseline with SIFT feature matching, RANSAC verification, and species-specific open-set thresholds. Achieved 0.765 public leaderboard score.
 - **Model 6:** Tested joint open-set ranking with cross-flank retrieval and domain weighting. Public Kaggle MAP@5 was 0.83194, compared with 0.85960 for Model 3d.
+- **Model 8:** Extended Dewang’s Model 3e with RootSIFT VLAD texture features and a species-specific pair classifier. Used verified matches between sightings to share identity scores and propose candidates outside 3e’s shortlist. Across six local episodes on held-out animals, MAP@5 rose from 0.89619 to 0.89947. The Model 8 submission scored **0.865** on the public Kaggle leaderboard.
 
 Dalvin:
 - **Model 3:** LDA-projected MIEW-ID retrieval, RootSIFT + RANSAC verification, and LightGBM open-set ranking (new-individual detector + candidate scorers) trained on simulated open-set splits, with 3 rounds of transductive stacking over nearest test neighbours. Simulated out-of-fold MAP@5: 0.916. Public leaderboard score: pending submission.
